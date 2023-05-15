@@ -1,0 +1,83 @@
+{% extends 'admin_layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Invoice Filter</h4>
+        </div>
+        <div class="col-sm-6">
+
+        </div>
+    </div>
+
+    <hr>
+    <form action="{% url 'Invoices:invoice_filter' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="date" class="form-control" name="from_date" value="{{ from_date }}" required>
+            </div>
+
+            <div class="col-sm-4">
+                <input type="date" class="form-control" name="to_date" value="{{ to_date }}" required>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-outline-success">Filter</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Invoice Creation Date</th>
+                    <th>Invoice Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                    <td><a href="{% url 'Invoices:invoice_services' invoice.id %}">{{ invoice.client.company_name }}</a></td>
+                    <td>{{ invoice.created_at }}</td>
+                    <td>{{ invoice.invoice_date }}</td>
+                    <td>
+                        {% if invoice.status_complete == True %}
+                            Paid
+                            {% else %}
+                            Pending
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'Invoices:edit_invoice' invoice.id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+                        <a href="#" id="demoSwal" title="Delete" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                        <a href="{% url 'Invoices:invoice_preview' invoice.id %}" title="" class="btn btn-outline-primary btn-sm">Invoice Preview</a>
+                        <a href="{% url 'Invoices:invoice_payments' invoice.id %}" class="btn btn-outline-primary btn-sm" >Payments</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

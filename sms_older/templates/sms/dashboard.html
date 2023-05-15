@@ -1,0 +1,87 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+       <div class="tile">
+{#           <div class="page-header">#}
+{#               <div class="row">#}
+                   <div class="tile-title">
+
+                   </div>
+{#               </div>#}
+{#           </div>#}
+
+       <div class="row">
+           <div class="col-lg-6">
+           <div class="bs-component">
+           <div class="card border-success">
+               <div class="card-header">
+                   <h5 class="mb-3" id="buttons">Send from own source</h5>
+               </div>
+               <div class="card-body">
+                   <p></p>
+                   <a class="btn btn-outline-success" href="{% url 'sms:simple_sms' %}">Continue</a>
+               </div>
+           </div>
+           </div>
+       </div>
+
+       <div class="col-lg-6">
+           <div class="card border-success">
+               <div class="bs-component">
+                   <div class="card-header">
+                   <h5 class="mb-3" id="buttons">Send to All</h5>
+                   </div>
+               <div class="card-body">
+                   <p></p>
+                   <a class="btn btn-outline-success" href="{% url 'sms:send_to_all' %}">Continue</a>
+               </div>
+               </div>
+           </div>
+       </div>
+
+            <div class="col-lg-6">
+           <div class="card border-success">
+               <div class="bs-component">
+                   <div class="card-header">
+                   <h5 class="mb-3" id="buttons">Send to court</h5>
+                   </div>
+               <div class="card-body">
+                   <p></p>
+                   <a class="btn btn-outline-success" href="{% url 'sms:send_to_court' %}">Continue</a>
+               </div>
+               </div>
+           </div>
+
+       </div>
+            <div class="col-lg-6">
+           <div class="card border-success">
+               <div class="bs-component">
+                   <div class="card-header">
+                   <h5 class="mb-3" id="buttons">Send To Network</h5>
+                   </div>
+               <div class="card-body">
+                   <p></p>
+                   <a class="btn btn-outline-success" href="{% url 'sms:send_to_network' %}">Continue</a>
+               </div>
+               </div>
+           </div>
+       </div>
+
+           </div>
+       </div>
+       </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

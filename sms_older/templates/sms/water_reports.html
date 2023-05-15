@@ -1,0 +1,85 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-6">
+        <div class="tile">
+            <form action="{% url 'sms:meter_readings_report' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group" hidden>
+                    <input name="client" value="{{ client.id }}">
+                </div>
+                <div class="form-group">
+                    <label>Select water report</label>
+                    <select name="reports_value" class="form-control" required>
+                        <option value="">Select Report</option>
+                        <option value="1">Water Clients</option>
+                        <option value="2">Meter Readings</option>
+                        <option value="3">Bulk sms</option>
+                         <option value="4">Payment Received</option>
+                         <option value="5">Arrears</option>
+                        <option value="6">Overdue Meter Readings</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input class="form-control" name="start_date" id="demoDate" type="text" placeholder="Select Start Date" required>
+                </div>
+                <div class="form-group">
+                    <label for="">End Date</label>
+                    <input class="form-control" name="end_date" id="demoDate2" type="text" placeholder="Select End Date"required>
+                </div>
+
+
+
+
+
+                <button type="submit" class="btn btn-primary">Download Report</button>
+
+            </form>
+        </div>
+    </div>
+    </div>
+
+<div hidden>
+    {% if file_path %}
+        <p>{{ file_path }}</p>
+    <a href="../../../{{ file_path }}" id="download">Download</a>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById("download").click();
+</script>
+{% endblock %}
+
+{% block additional_scripts %}
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript">
+      $('#demoDate').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+
+       $('#demoDate2').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+    </script>
+{% endblock %}

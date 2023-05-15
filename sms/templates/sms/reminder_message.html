@@ -1,0 +1,64 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+        {% if client_bal > 100 %}
+        <div class="col-sm-12">
+            <h4>{{ reminder_message }}</h4>
+        </div>
+        {% else %}
+        <div class="col-sm-12">
+            <h4>{{ low_balance }}</h4>
+        </div>
+        {% endif %}
+
+
+           
+
+    </div>
+    <hr style="margin-top: 1px !important;">
+</div>
+    <div class="row">
+        <div class="col-md-3">
+    </div>
+<div class="row">
+    <form action="{% url 'sms:disconnection_reminder' client.id %}" method="post">
+    {% csrf_token %}
+   
+    {% if client_bal > 100 %}
+    <div>
+        <button type="submit" class="btn btn-primary pull-center" >Send Disconnection Reminder</button>
+    </div>
+    {% endif %} 
+  </div>
+
+
+
+
+
+</form>
+</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

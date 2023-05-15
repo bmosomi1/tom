@@ -1,0 +1,64 @@
+<!-- index.html -->
+{% load static %}
+<html>
+<head>
+<script>
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    theme: "light2",
+    title:{
+      text: "Production of Major Crops in Indias"
+    },
+    toolTip: {
+      shared: true
+    },
+    axisY: {
+      title: "Production in Million Tonnes",
+      valueFormatString: "#,###MT"
+    },
+    legend: {
+      cursor: "pointer",
+      itemclick: toggleDataSeries
+    },
+    data: [
+      {
+        type: "bar",
+        name: "2014-15",
+        showInLegend: true,
+        yValueFormatString: "#,###MT",
+        dataPoints: {{ production_data_2014|safe }}
+      },
+      {
+        type: "bar",
+        name: "2015-16",
+        showInLegend: true,
+        yValueFormatString: "#,###MT",
+        dataPoints: {{ production_data_2015|safe }}
+      },
+      {
+        type: "bar",
+        name: "2016-17",
+        showInLegend: true,
+        yValueFormatString: "#,###MT",
+        dataPoints: {{ production_data_2016|safe }}
+      }
+    ]
+  });
+  chart.render();
+ 
+  function toggleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+          e.dataSeries.visible = false;
+      } else {
+          e.dataSeries.visible = true;
+      }
+      e.chart.render();
+  }
+}
+</script>    
+</head>
+<body>
+    <div id="chartContainer" style="width: 100%; height: 360px;"></div>
+    <script src="{% static 'canvasjs.min.js' %}"></script>
+</body>
+</html>  

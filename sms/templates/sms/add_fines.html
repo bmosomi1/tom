@@ -1,0 +1,108 @@
+{% extends 'layouts/new_base.html' %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+{#    <div class="app-title">#}
+{#        <div>#}
+{#          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>#}
+{#            <h2>Welcome, <strong> {{request.user.username}} </strong></h2>#}
+{#          <p></p>#}
+{#        </div>#}
+{#        <ul class="app-breadcrumb breadcrumb">#}
+{#          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>#}
+{#          <li class="breadcrumb-item"><a href="#">Create Contact</a></li>#}
+{#        </ul>#}
+{#      </div>#}
+<div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Add Fine..</h3>
+            <div class="tile-body">
+              <form action="{% url 'sms:add_fines' %}" method="post">
+                {% csrf_token %}
+                 <div class="form-group">
+                    <label>Customer</label>
+                    <select name="client" class="form-control" id="customers">
+                        <option value="">Select a customer</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.id }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+               <div class="form-group">
+                    <label>Fines</label>
+                    <input class="form-control" type="text" name="fines">
+                </div>
+
+
+
+{#                <div class="form-group">#}
+{#                  <label class="control-label">Contact Name</label>#}
+{#                  <input class="form-control" name="name" type="text" placeholder="Enter Group Name">#}
+{#                </div>  #}
+                  <button class="btn btn-outline-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add Readings</button>
+              </form>
+            </div>
+            <div class="tile-footer">
+            </div>
+          </div>
+        </div>
+
+ <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Upload Fines</h3>
+              <div class="col-sm-6">
+                <a href="{% url 'sms:add_fine_upload' %}" class="btn btn-primary pull-right">Download Template</a>
+            </div>
+
+            <div class="tile-body">
+
+                <form action="{% url 'sms:import_fine_readings' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+
+                        <label class="control-label">Download excel template which contains all clients</label>
+                        <label class="control-label">Add fines against each names.</label>
+                        <label class="control-label">Chose file from your computer and click import fines.</label>
+                        <input class="form-control" name="my_file" type="file" required>
+                         <button type="submit" class="btn btn-outline-success">Import Fines</button>
+                    </div>
+
+
+
+
+            </div>
+
+
+
+
+</div>
+     <div hidden>
+    {% if file_path %}
+        <p>{{ file_path }}</p>
+    <a href="../../../{{ file_path }}" id="download">Download</a>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById("download").click();
+</script>
+<meta http-equiv = "refresh" content = "3000; url = https://www.roberms.co.ke" />
+</div>
+<hr>
+
+
+
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#meter').select2();
+$('#customers').select2();
+</script>
+{% endblock %}

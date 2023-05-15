@@ -1,0 +1,269 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<hr>
+<form action="{% url 'sms:multi_search'  %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        
+
+
+        
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="search_key" value="{{ search_key }}" required>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-outline-success">Search</button>
+        </div>
+    </div>
+</form>
+<hr>
+
+
+
+
+
+
+
+<!-- Write HTML code here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>PROFILE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% if profile %}
+<div class="container">
+<h4 class="text-left">PROFILE</h4><br>			
+<table class="table table-dark table-striped">
+	<thead>
+	<tr>
+		<th>NAMES</th>
+		<th>A/C </th>
+		<th>MOBILE</th>
+		<th>AMOUNT DUE</th>
+		<th>LOCATION</th>
+        <th>REG. DATE</th>
+        <th>L. READING DATE</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- jinja2 Technique -->
+	
+	{% for i in profile %}
+	<tr>
+		<td>{{i.names}}</td>
+		{% if i.provided_account %}
+
+        <td>{{ i.provided_account }}</td>
+        {% else %}
+        <td>{{ i.id }}</td>
+        {% endif %}
+		
+		<td>{{i.msisdn}}</td>
+		<td>{{i.amount_due}}</td>
+		<td>{{i.court}}</td>
+        <td>{{i.created_at|date:'y-m-d'}}</td>
+        <td>{{i.last_meter_reading_date|date:'y-m-d'}}</td>
+	</tr>
+	{% endfor %}
+	{% endif %}
+	</tbody>
+</table>
+</div>
+
+{% if payments %}
+<div class="container">
+<h4 class="text-left">PAYMENT RECEIVED</h4><br>			
+<table class="table table-dark table-striped">
+	<thead>
+	<tr>
+		<th>RECEIVED FROM</th>
+		<th>A/C </th>
+        <th>ACCOUNT NAME</th>
+		<th>AMOUNT</th>
+		<th>CONFIRMATION CODE</th>
+		<th>B/CF</th>
+        <th>PAYMENT DATE</th>
+        
+	</tr>
+	</thead>
+	<tbody>
+	<!-- jinja2 Technique -->
+	
+	{% for i in payments %}
+	<tr>
+		<td>{{i.received_from}}</td>
+		<td>{{i.account_number}}</td>
+		<td>{{i.account_name}}</td>
+		<td>{{i.amount}}</td>
+        <td>{{i.confirmation_code}}</td>
+		<td>{{i.balance_carried_forward}}</td>
+        <td>{{i.pay_date|date:'y-m-d'}}</td>
+        
+	</tr>
+	{% endfor %}
+	{% endif %}
+	</tbody>
+</table>
+</div>
+
+{% if readings %}
+<div class="container">
+<h4 class="text-left">METER READINGS</h4><br>			
+<table class="table table-dark table-striped">
+	<thead>
+	<tr>
+		<th>CLIENT NAMES</th>
+		<th>ACCOUNT </th>
+        <th>C.READINGS</th>
+		<th>P.READINGS</th>
+		<th>UNITS</th>
+		<th>BILL</th>
+        <th>READ DATE</th>
+        
+	</tr>
+	</thead>
+	<tbody>
+	<!-- jinja2 Technique -->
+	
+	{% for i in readings %}
+	<tr>
+		<td>{{i.names}}</td>
+		<td>{{i.account_number.id}}</td>
+		<td>{{i.readings}}</td>
+		<td>{{i.previous_reading}}</td>
+        <td>{{i.units_consumed}}</td>
+		<td>{{i.amount_from_units}}</td>
+        <td>{{i.read_date|date:'y-m-d'}}</td>
+        
+	</tr>
+	{% endfor %}
+	{% endif %}
+	</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+{% if bills_sent %}
+<div class="container">
+<h4 class="text-left">BILLS SENT</h4><br>			
+<table class="table table-dark table-striped">
+	<thead>
+	<tr>
+		<th>NAME</th>
+		<th>A/C </th>
+        <th>PHONE</th>
+		<th>UNITS</th>
+		<th>TEXT MESSAGE</th>
+		<th>DATE</th>
+        
+        
+	</tr>
+	</thead>
+	<tbody>
+	<!-- jinja2 Technique -->
+	
+	{% for i in bills_sent %}
+	<tr>
+		<td>{{i.account_name}}</td>
+		<td>{{i.account_number}}</td>
+		<td>{{i.dest_msisdn}}</td>
+		<td>{{i.units_consumed}}</td>
+        <td>{{i.confirmation_code}}</td>
+		<td>{{i.text_message}}</td>
+        <td>{{i.out_date|date:'y-m-d'}}</td>
+        
+	</tr>
+	{% endfor %}
+	{% endif %}
+	</tbody>
+</table>
+</div>
+
+
+
+{% if messages_sent %}
+<div class="container">
+<h4 class="text-left">MESSAGES SENT</h4><br>			
+<table class="table table-dark table-striped">
+	<thead>
+	<tr>
+		<th>PHONE</th>
+		<th>TEXT MESSAGE </th>
+        <th>DATE</th>
+        <th>DELIVERY STATUS</th>
+		
+        
+        
+	</tr>
+	</thead>
+	<tbody>
+	<!-- jinja2 Technique -->
+	
+	{% for i in messages_sent %}
+	<tr>
+		<td>{{i.dest_msisdn}}</td>
+        
+		<td>{{i.text_message}}</td>
+		
+		
+        <td>{{i.out_date|date:'y-m-d'}}</td>
+        <td>{{i.delivery_status}}</td>
+        
+	</tr>
+	{% endfor %}
+	{% endif %}
+	</tbody>
+</table>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}
+
+{% block additional_scripts %}
+
+
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript">
+      $('#demoDate').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+
+       $('#demoDate2').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+    </script>
+
+{% endblock %}
+
+
+

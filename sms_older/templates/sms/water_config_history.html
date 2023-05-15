@@ -1,0 +1,59 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Previous Configurations</h4>
+        </div>
+
+    </div>
+    <hr>
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Rate Per Unit</th>
+                    <th>Standing Charge</th>
+                    <th>Comment</th>
+                    <th>Updated On</th>
+                    <th>Edit</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in configs %}
+                <tr>
+                    <td><a href="">{{ client.rate }}</a></td>
+
+                    <td>{{ client.standing_charge }}</td>
+                    <td>{{ client.comment }}</td>
+
+                    <td>{{ client.update_date|date:'Y:m:d' }}</td>
+                    <td>
+                        <a href="" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+{#                        <a href="" title="Approve" class="btn btn-outline-primary btn-sm"><i class="fa fa-check-square-o"></i></a>#}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

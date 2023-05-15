@@ -1,0 +1,66 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+{% load filters %}
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Bills Sent</h3>
+            </div>
+            <div class="col-sm-6">
+                <a href="{% url 'sms:add_meter_readings' %}" class="btn btn-primary pull-right">Add Meter Readings</a>
+            </div>
+        </div>
+        <hr>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Names</th>
+                    <th>Account Number</th>
+                    <th>Phone Number</th>
+                    <th>Readings</th>
+                    <th>Units Consumed</th>
+                    <th>Reading Date</th>
+
+                    
+                </tr>
+                </thead>
+                <tbody>
+                {% for bills in bills_sent %}
+                <tr>
+                    <td><a href="{% url 'sms:bills_sent_clients' bills.account_number %}">{{ bills.account_name }}</a></td>
+
+
+                    <td>{{ bills.account_number }}</td>
+                    <td>{{ bills.dest_msisdn }}</td>
+                    
+                    <td>{{ bills.curr_reading }}</td>
+                    <td>{{ bills.units_consumed }}</td>
+                    <td>{{ bills.read_date |date:'Y-m-d H:i' }}</td>
+
+                    <td>{{ bills.reading_type }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

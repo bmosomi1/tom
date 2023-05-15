@@ -1,0 +1,156 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_styles %}
+{#<link rel="stylesheet" href="{% static 'css/custom.css' %}">#}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small primary coloured-icon"><i class="icon fa fa-phone fa-3x"></i>
+            <div class="info">
+              
+              <p><b>{{ phone_number }}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small info coloured-icon"><i class="icon fa fa-users fa-3x"></i>
+            <div class="info">
+              <h4>Arrears</h4>
+              <p><b>{{ amount_due }}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small warning coloured-icon"><i class="icon fa fa-superpowers fa-3x"></i>
+            <div class="info">
+              <h4>Meter Readings</h4>
+              <p><b>{{ readings }}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small danger coloured-icon"><i class="icon fa fa-money fa-3x"></i>
+            <div class="info">
+              <h4>Read Date</h4>
+              <p><b>{{ last_date }}</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <p><b>{{ client_name }}    <a href="{% url 'sms:disconnection_reminder' client_id %}" class="text-success"> Send Disconnection Notice </a></b></p>
+            
+{#              <p><a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>Add Item	</a></p>#}
+              <hr>
+            <div class="tile-body">
+                <h5 class=""> <a href="{% url 'sms:client_invoices' client_id %}" class="text-success">Create Invoice </a></h5>
+                <h5 class=""> <a href="{% url 'sms:client_bills' client_id %}" class="text-success">Create Bill </a></h5>
+                  
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="tile">
+            <p><b>{{ client_court }} Station</b></p>
+                <hr>
+{#              <p><a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>Add Item	</a></p>#}
+            <div class="tile-body">
+                <h5 class=""> <a href="{%url 'sms:statement_preview' client_id%}" class="text-success">Generate Statement</a></h5>
+                <h5 class=""> <a href="{%url 'sms:create_water_sub_client' client_id%}" class="text-success">Manage Sub Accounts</a></h5>
+                  
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tile" style="height: 400px;">
+
+                <h3>Monthly water consumptions</h3>
+               
+                <hr>
+                <div class="tile-body">
+                    <canvas class="embed-responsive-item" id="barChartDemo" style="width: 475px; height: 100px;"></canvas>
+{#                    <div class="embed-responsive embed-responsive-16by9" style="max-height: 1200px;max-width:1000px;overflow-x: scroll; overflow-y: hidden;">#}
+
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block additional_scripts %}
+<script>
+var data = {
+      	labels: {{ months }},
+      	datasets: [
+      		{
+      			label: "People Reached",
+      			fillColor: "rgb(0,121,121)",
+      			strokeColor: "rgba(220,220,220,1)",
+      			pointColor: "rgba(220,220,220,1)",
+      			pointStrokeColor: "#fff",
+      			pointHighlightFill: "#fff",
+      			pointHighlightStroke: "rgba(220,220,220,1)",
+      			data: {{ monthly_readings }}
+      		},
+      	]
+      };
+
+var ctxb = $("#barChartDemo").get(0).getContext("2d");
+      var barChart = new Chart(ctxb).Bar(data);
+</script>
+{% endblock %}
+{% block body %}
+
+
+
+            <div class="tile-body">
+                <table class="table table-hover table-bordered" id="sampleTable">
+                    <thead>
+                    <tr>
+                        <th>Received On</th>
+    
+                        <th>Accout Name</th>
+                        <th>Amount</th>
+    
+                        <th>Received From</th>
+                        <th>Confirmation Code</th>
+                        <th>Outstanding Balance</th>
+                        <th>Actions</th>
+    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client in payments %}
+                    <tr>
+                         <td>{{ client.pay_date|date:'Y:m:d' }}</td>
+                        <td><a href="{% url 'sms:water_payments_clients' client.client_id %}">{{ client.account_name }}</a></td>
+    
+                        <td>{{ client.amount }}</td>
+                        <td>{{ client.received_from }}</td>
+                        <td>{{ client.confirmation_code }}</td>
+                        <td>{{ client.balance_carried_forward }}</td>
+    
+                        <td>
+                            <a href="{% url 'sms:edit_water_client' client.client_id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+    {#                        <a href="" title="Approve" class="btn btn-outline-primary btn-sm"><i class="fa fa-check-square-o"></i></a>#}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+       
+{% endblock %}

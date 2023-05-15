@@ -1,0 +1,95 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.css" integrity="sha512-p209YNS54RKxuGVBVhL+pZPTioVDcYPZPYYlKWS9qVvQwrlzxBxkR8/48SCP58ieEuBosYiPUS970ixAfI/w/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+
+            <form action="{% url 'sms:meter_replacement' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Meter</label> <br>
+                    <select name="meter" class="form-control" id="meter" style="width:300px" required>
+                        <option value="">Select a meter</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.id }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label>Meter Number</label>
+                    <input class="form-control" type="text" name="meter_number"  value="" style="width:300px">
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                    <input class="form-control" type="text" name="comment"  value="New meter replacement" style="width:300px">
+                </div>
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Replace Meter</button>
+            </form>
+        </div>
+                <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Meter Number</th>
+                    <th>Phone Number</th>
+
+
+                    <th>Court</th>
+                    <th>Network</th>
+                    <th>Last Readings</th>
+                    <th>Amount Due</th>
+                    <th>Replace Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in replacements %}
+                <tr>
+                    <td><a href="{% url 'sms:edit_water_client' client.id %}">{{ client.names }}</a></td>
+                    <td>{{ client.meter_number }}</td>
+                    <td>{{ client.phone_number }}</td>
+                    <td>{{ client.court }}</td>
+
+                    <td>{{ client.network }}</td>
+                    <td>{{ client.last_units }}</td>
+                    <td>{{ client.amount_due }}</td>
+                    <td>{{ client.created_at|date:'Y:m:d' }}</td>
+                    <td>
+                        <a href="{% url 'sms:edit_water_client' client.id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+{#                        <a href="" title="Approve" class="btn btn-outline-primary btn-sm"><i class="fa fa-check-square-o"></i></a>#}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#meter').select2();
+$('#customer').select2();
+</script>
+{% endblock %}

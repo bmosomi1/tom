@@ -1,0 +1,54 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Clients</h4>
+        </div>
+
+    </div>
+    <hr>
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                   <th>Phone Number</th>
+                    <th>Message</th>
+                    <th>Date Sent</th>
+                    <th>Delivery Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for outgoing in outgoings %}
+                <tr>
+                    <td><a href="#">{{ outgoing.dest_msisdn }}</a></td>
+                    <td>{{ outgoing.text_message }}</td>
+                    <td>{{ outgoing.out_date|date:'Y:m:d H:' }}</td>
+                    <td>{{ outgoing.delivery_status }}</td>
+                    <td><a href="{% url 'sms:simple_sms_resend' outgoing.id %}">Resend</a></td>
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

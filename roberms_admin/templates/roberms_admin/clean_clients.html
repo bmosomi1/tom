@@ -1,0 +1,51 @@
+{% extends 'admin_layouts/new_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h4>Clients</h4>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Sender Name</th>
+                    <th>Status</th>
+                    <th>Joined On</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.username }}</td>
+                    <td>{{ client.access_code }}</td>
+                    <td>{{ client.created_at|date:'Y/m/d' }}</td>
+                    <td>
+                        {% if client.is_active %}
+                            Active
+                        {% else %}
+                            De-activated
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'roberms_admin:clean_client_contacts' client.id %}" class="btn btn-sm btn-outline-danger">Clean Contacts</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

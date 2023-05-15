@@ -1,0 +1,94 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+
+<div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Edit Water Client</h3>
+            <div class="tile-body">
+              <form action="{% url 'sms:edit_water_client' client.id %}" method="post">
+                {% csrf_token %}
+
+
+               <div class="form-group">
+                    <label>Client Names</label>
+                    <input class="form-control" type="text" name="names" value ="{{ client.names }} ">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input class="form-control" type="text" name="msisdn" value="{{ client.msisdn }}">
+                </div>
+                <div class="form-group">
+                    <label>Phone 2</label>
+                    <input class="form-control" type="text" name="msisdn2"value="{{ client.msisdn2 }}">
+                </div>
+                <div class="form-group">
+                    <label>Id Number</label>
+                    <input class="form-control" type="text" name="id_num"value="{{ client.id_num }}">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input class="form-control" type="text" name="email_address"value="{{ client.email_address }}">
+                </div>
+                <div class="form-group">
+                    <label>Sub station</label>
+                    <input class="form-control" type="text" name="court"value="{{ client.court }}">
+                </div>
+                <div class="form-group">
+                    <label>Amount Due</label>
+                    <input class="form-control" type="text" name="amount_due"value="{{ client.amount_due }}">
+                </div>
+                <div class="form-group">
+                    <label>Last Readings</label>
+                    <input class="form-control" type="text" name="last_meter_reading"value="{{ client.last_meter_reading }}">
+                </div>
+                <div class="form-group">
+                    <label>Customer Rate</label>
+                    <input class="form-control" type="text" name="customer_rate"value="{{ client.customer_rate }}">
+                </div>
+                <div class="form-group">
+                    <label>Standing Charge</label>
+                    <input class="form-control" type="text" name="standing_charge"value="{{ client.standing_charge }}">
+                </div>
+
+
+
+{#                <div class="form-group">#}
+{#                  <label class="control-label">Contact Name</label>#}
+{#                  <input class="form-control" name="name" type="text" placeholder="Enter Group Name">#}
+{#                </div>  #}
+                  <button class="btn btn-outline-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Submit</button>
+
+            </div>
+            <div class="tile-footer">
+            </div>
+          </div>
+        </div>
+
+
+
+</form>
+</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

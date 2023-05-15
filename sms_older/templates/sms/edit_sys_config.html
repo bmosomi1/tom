@@ -1,0 +1,70 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-sm-6">
+            <h4>Update system Configurations</h4>
+        </div>
+
+            <a href="{% url 'sms:water_config_history' %}" class="btn btn-outline-primary pull-right">Config History</a>
+
+    </div>
+    <hr style="margin-top: 1px !important;">
+</div>
+    <div class="row">
+        <div class="col-md-3">
+    </div>
+<div class="row">
+    <form action="{% url 'sms:edit_sys_config' client.id %}" method="post">
+    {% csrf_token %}
+   <div class="form-group row">
+    <label for="inputEmail3" class="">Rate Per Unit:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  name ="rate"  value="{{ client.rate }} "placeholder="">
+    </div>
+  </div>
+   <div class="form-group row">
+    <label for="inputEmail3" class="">Standing Charge:</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control"  name ="standing_charge" value="{{ client.standing_charge }}" placeholder="">
+    </div>
+  </div>
+   <div class="form-group row">
+    <label for="inputEmail3" class="">Comments:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  name ="comment" value="{{ client.comment }}" placeholder="">
+    </div>
+  </div>
+
+
+<div>
+    <button type="submit" class="btn btn-primary pull-center" >Submit</button>
+</div>
+
+
+</form>
+</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

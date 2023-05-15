@@ -1,0 +1,95 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+
+            <form action="{% url 'sms:water_manual_payments' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Client</label> <br>
+                    <select name="meter" class="form-control" id="meter" style="width:300px" required>
+                        <option value="">Select client</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.id }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input class="form-control" type="text" name="amount"   style="width:300px">
+                </div>
+                <div class="form-group">
+                    <label>Ref ID</label>
+                    <input class="form-control" type="text" name="ref_id"   style="width:300px">
+                </div>
+                <div class="form-group">
+                    <label>Comments</label>
+                    <input class="form-control" type="text" name="comment"  value="Cash Payment" style="width:300px">
+                </div>
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Add Payment</button>
+            </form>
+        </div>
+                <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Names</th>
+                    <th>Account Number </th>
+                    <th>Amount</th>
+
+
+                    <th>Ref ID</th>
+                    <th>Payment Date</th>
+                    <th>Balance carried Forward</th>
+                    <th>Comments</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td><a href="{% url 'Invoices:client_invoices' payment.id %}">{{ payment.received_from }}</a></td>
+                    <td>{{ payment.client_id }}</td>
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.ref_id }}</td>
+
+                    <td>{{ payment.pay_date |date:'Y:m:d' }}</td>
+                    <td>{{ payment.balance_carried_forward }}</td>
+                    <td>{{ payment.comments }}</td>
+
+                    <td>
+                        <a href="{% url 'sms:edit_water_client' payment.id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+{#                        <a href="" title="Approve" class="btn btn-outline-primary btn-sm"><i class="fa fa-check-square-o"></i></a>#}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#meter').select2();
+$('#customer').select2();
+</script>
+{% endblock %}

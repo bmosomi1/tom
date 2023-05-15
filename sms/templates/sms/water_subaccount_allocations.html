@@ -1,0 +1,91 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+
+            <form action="{% url 'sms:water_subaccounts_allocations' main_id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Sub Account</label> <br>
+                    <select name="client_id" class="form-control" id="client_id" style="width:300px" required>
+                        <option value="">Select Sub Account</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.names }} - {{ client.id }} - {{ client.msisdn }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+               
+
+                <div class="form-group">
+                    <label>New Account</label>
+                    <input class="form-control" type="text" name="new_account"  value="" style="width:300px" required="True">
+                </div>
+               
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Allocate Sub Account</button>
+            </form>
+        </div>
+                <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>NAMES</th>
+                    <th>PHONE</th>
+                    <th>ORIGINAL ACCOUNT</th>
+                    <th>ALLOCATED ACCOUNT </th>
+                    <th>CURRENT READINGSS</th>
+
+
+                    <th>AMOUNT DUE</th>
+                    <th>REG Date</th>
+
+                   
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment in customers %}
+                <tr>
+                    <td>{{ payment.names }}</td>
+                    <td>{{ payment.msisdn }}</td>
+                     <td>{{ payment.id }}</td>
+                    <td>{{ payment.provided_account }}</td>
+                    <td>{{ payment.last_meter_reading }}</td>
+                    <td>{{ payment.amount_due }}</td>
+                    <td>{{ payment.created_at |date:'Y:m:d' }}</td>
+
+                    
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#client_id').select2();
+$('#customer').select2();
+$('#transaction').select2();
+</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Clients</h4>
+        </div>
+        <div class="col-sm-6">
+            <a href="{% url 'sms:create_water_client' %}" class="btn btn-outline-primary pull-right">New Client</a>
+        </div>
+    </div>
+    <hr>
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>A/C</th>
+                    <th>Phone Number</th>
+                    <th>ID Number</th>
+
+                    <th>Court</th>
+                    <th>Network</th>
+                    <th>Last Readings</th>
+                    <th>Amount Due</th>
+                    <th>Reg Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td><a href="{% url 'Invoices:client_invoices' client.id %}">{{ client.names }}</a></td>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.msisdn }}</td>
+                    <td>{{ client.id_num }}</td>
+                    <td>{{ client.court }}</td>
+                    <td>{{ client.network }}</td>
+                    <td>{{ client.last_meter_reading }}</td>
+                    <td>{{ client.amount_due }}</td>
+                    <td>{{ client.created_at|date:'Y:m:d' }}</td>
+                    <td>
+                        <a href="{% url 'sms:edit_water_client' client.id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
+{#                        <a href="" title="Approve" class="btn btn-outline-primary btn-sm"><i class="fa fa-check-square-o"></i></a>#}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

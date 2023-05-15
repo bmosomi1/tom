@@ -1,0 +1,214 @@
+{% load static %}
+
+<div hidden>
+    {% url 'sms:apps' as apps %}
+    {% url 'sms:water_apps' as water_apps %}
+  #  {% url 'sms:comprehensive_reports' as reports %}
+    {% url 'sms:customer_credit' as credit %}
+  #  {% url 'sms:customer_contacts' as contacts %}
+    {% url 'sms:send' as simple_sms %}
+    {% url 'sms:personalized_sms_menu' as personalized_sms %}
+    {% url 'sms:messages_dashboard' as messages_dashboard %}
+    {% url 'sms:my_sms_reports' as my_sms_reports %}
+    {% url 'sms:water_sent_sms' as water_sent_sms %}
+    {% url 'sms:meter_readings_report' as meter_readings_report %}
+    {% url 'sms:customer_till_numbers' as tills %}
+    {% url 'sms:documentation' as documentation %}
+    {% url 'sms:applications' as applications %}
+    {% url 'sms:get_tags' as get_tags %}
+    {% url 'sms:my_payments' as my_payments %}
+    {% url 'sms:water_clients' as water_client %}
+    {% url 'sms:water_courts' as water_courts %}
+    {% url 'sms:meter_readings' as meter_readings %}
+    {% url 'sms:meter_replacement' as meter_replacement %}
+    {% url 'sms:water_payments' as water_payments %}
+    {% url 'sms:water_system_config' as water_system_config %}
+
+{#    {% url 'ShortCode:subs' as subs %}#}
+    {% url 'ShortCode:incoming_sms' as incoming_sms %}
+    {% url 'ShortCode:simple_sms' as short_code_simple_sms %}
+    {% url 'ShortCode:reports' as short_code_reports %}
+    {% url 'ShortCode:employers' as short_employers %}
+    {% url 'ShortCode:employees' as short_employees %}
+
+</div>
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <ul class="app-menu">
+        {% if request.user.id == 187 %}
+            <li>
+                <a {% if request.path == short_code_simple_sms %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ short_code_simple_sms }}">
+                    <i class="app-menu__icon fa fa-dashboard"></i>
+                    <span class="app-menu__label">Send Sms</span></a>
+            </li>
+
+{#            <li>#}
+{#                <a {% if request.path == subs %} class="app-menu__item active"#}
+{#                {% else %}#}
+{#                                                 class="app-menu__item"#}
+{#                {% endif %} href="{{ subs }}">#}
+{#                    <i class="app-menu__icon fa fa-dashboard"></i>#}
+{#                    <span class="app-menu__label">Subs</span></a>#}
+{#            </li>#}
+
+            <li>
+                <a {% if request.path == incoming_sms %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ incoming_sms }}">
+                    <i class="app-menu__icon fa fa-inbox"></i>
+                    <span class="app-menu__label">Incoming Sms</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == short_employers %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ short_employers }}">
+                    <i class="app-menu__icon fa fa-user-secret"></i>
+                    <span class="app-menu__label">Employers</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == short_employees %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ short_employees }}">
+                    <i class="app-menu__icon fa fa-user"></i>
+                    <span class="app-menu__label">Employees</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == short_code_reports %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ short_code_reports }}">
+                    <i class="app-menu__icon fa fa-address-book"></i>
+                    <span class="app-menu__label">Report</span></a>
+            </li>
+        {% else %}
+            <li>
+                <a {% if request.path == water_apps %} class="app-menu__item active"
+                {% else %}
+                                                 class="app-menu__item"
+                {% endif %} href="{{ water_apps }}">
+                    <i class="app-menu__icon fa fa-dashboard"></i>
+                    <span class="app-menu__label">Dashboard</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == messages_dashboard %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ messages_dashboard }}">
+                    <i class="app-menu__icon fa fa-mail-forward"></i>
+                    <span class="app-menu__label">Messages</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == meter_readings_report %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ meter_readings_report }}">
+                    <i class="app-menu__icon fa fa-pie-chart"></i>
+                    <span class="app-menu__label">Reports</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == water_sent_sms %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ water_sent_sms }}">
+                    <i class="app-menu__icon fa fa-book"></i>
+                    <span class="app-menu__label">Sent Messages</span></a>
+            </li>
+<!--
+            <li>
+                <a {% if request.path == credit %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ credit }}">
+                    <i class="app-menu__icon fa fa-money"></i>
+                    <span class="app-menu__label">Top Up</span></a>
+            </li>
+
+            <li>
+                <a {% if request.path == contacts %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ contacts }}">
+                    <i class="app-menu__icon fa fa-phone"></i>
+                    <span class="app-menu__label">Contacts</span></a>
+            </li>
+
+
+-->
+
+
+
+
+
+          <li>
+                <a {% if request.path == water_clients %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ water_client }}">
+                    <i class="app-menu__icon fa fa-money"></i>
+                    <span class="app-menu__label">Water Clients</span></a>
+            </li>
+           <li>
+                <a {% if request.path == water_courts %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ water_courts }}">
+                    <i class="app-menu__icon fa fa-money"></i>
+                    <span class="app-menu__label">Client Courts</span></a>
+            </li>
+           <li>
+                <a {% if request.path == meter_readings %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ meter_readings }}">
+                    <i class="app-menu__icon fa fa-money"></i>
+                    <span class="app-menu__label">Meter Readings</span></a>
+            </li>
+          <li>
+                <a {% if request.path == meter_replacement %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ meter_replacement }}">
+                    <i class="app-menu__icon fas fa-car"></i>
+                    <span class="app-menu__label">Meter Replacement</span></a>
+            </li>
+           <li>
+                <a {% if request.path == water_system_config %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ water_system_config }}">
+                    <i class="app-menu__icon fa fa-dashboard"></i>
+                    <span class="app-menu__label">System Config</span></a>
+            </li>
+            <li>
+                <a {% if request.path == water_payments %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ water_payments }}">
+                    <i class="app-menu__icon fas fa-car"></i>
+                    <span class="app-menu__label">Payment Received</span></a>
+            </li>
+          <!--
+            <li>
+                <a {% if request.path == documentation %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ documentation }}">
+                    <i class="app-menu__icon fa fa-book"></i>
+                    <span class="app-menu__label">Api</span></a>
+            </li>
+            -->
+        {% endif %}
+      </ul>
+    </aside>

@@ -1,0 +1,58 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<div class="tile">
+<div class="tile-title">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Payments expected vs actual collections for the last one year</h4>
+        </div>
+
+    </div>
+    <hr>
+</div>
+        <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                   <th>#</th>
+                   <th>Month</th>
+                    <th>Expected Collecctions</th>
+                    <th>Actual Collections</th>
+                    <th>Devitions</th>
+                    
+                </tr>
+                </thead>
+                
+                <tbody>
+                {% for a,b,c,d,e in revenue_list %}
+                <tr>
+                    <td>{{ a }}</td>
+                    <td><a href="#">{{ b }}</a></td>
+                    <td>{{ c }}</td>
+                    <td>{{ d }}</td>
+                    <td>{{ e }}</td>
+                    
+                    
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}

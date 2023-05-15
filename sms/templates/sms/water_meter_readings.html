@@ -1,0 +1,72 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+{% load filters %}
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Meter Readings</h3>
+            </div>
+            <div class="col-sm-6">
+                <a href="{% url 'sms:bills_sent' %}" class="btn btn-primary pull-right">Bills Sent</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="{% url 'sms:add_meter_readings' %}" class="btn btn-primary pull-right">Add Meter Readings</a>
+            </div>
+
+            <div class="">
+                <a href="{% url 'sms:add_fines' %}" class="btn btn-primary pull-right">Add Fines</a>
+            </div>
+        </div>
+        <hr>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Names</th>
+                    <th>Account Number</th>
+                    <th>Current Readings</th>
+                    <th>Previous Readings</th>
+                    <th>Units</th>
+                    <th>Reading Date</th>
+
+                    <th>Reading Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for meter_reading in meter_readings %}
+                <tr>
+                    <td><a href="{% url 'sms:meter_readings_clients' meter_reading.account_number.id %}">{{ meter_reading.names }}</a></td>
+
+
+                    <td>{{ meter_reading.account_number.id }}</td>
+                    <td>{{ meter_reading.readings }}</td>
+                    <td>{{ meter_reading.previous_reading }}</td>
+                    <td>{{ meter_reading.units_consumed }}</td>
+                    <td>{{ meter_reading.read_date |date:'Y-m-d H:i' }}</td>
+
+                    <td>{{ meter_reading.reading_type }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+{% endblock %}
