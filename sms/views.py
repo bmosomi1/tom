@@ -2472,7 +2472,7 @@ def meter_readings_report(request):
 
 
 
-            #summary_sheet.append(('GREEN NOTE WATER CLIENTS'))
+            #summary_sheet.append(('T N T WATER CLIENTS'))
             summary_sheet.append(('TOM WATER CLIENTS','NAMES'))
             big_red_text = Font(color="00FF0000", size=20)
             sheet["B1"].font = big_red_text
