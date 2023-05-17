@@ -26,7 +26,7 @@ SECRET_KEY = '&3kbe*4jj3nchwr6#h28r5@k=0sx&!-1&tb41s7@1%9**zpc(y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['167.235.239.71','176.58.121.115','localhost','gnote.roberms.com','www.roberms.co.ke','172.105.28.254','172.105.105.208']
+ALLOWED_HOSTS = ['167.235.239.71','176.58.121.115','localhost','tom.roberms.com','www.roberms.co.ke','172.105.28.254','172.105.105.208']
 
 
 # Application definition
