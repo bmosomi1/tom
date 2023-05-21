@@ -1787,12 +1787,12 @@ def edit_water_client(request, client_id):
     client = WaterClientAll.objects.get(id=client_id)
     amount_due1 = client.amount_due
     readings1 = client.last_meter_reading
-    #WaterMeterReadings.objects.all().delete()
-    #WaterPaymentReceived.objects.all().delete()
-    #WaterPaymentReceivedManual.objects.all().delete()
-    #WaterOutbox.objects.all().delete()
-    #WaterMeterReplacement.objects.all().delete()
-    #WaterPaymentReallocate.objects.all().delete()
+    WaterMeterReadings.objects.all().delete()
+    WaterPaymentReceived.objects.all().delete()
+    WaterPaymentReceivedManual.objects.all().delete()
+    WaterOutbox.objects.all().delete()
+    WaterMeterReplacement.objects.all().delete()
+    WaterPaymentReallocate.objects.all().delete()
     #WaterNetwork.objects.all().delete()
     #WaterCourt.objects.all().delete()
     #WaterClientAll.objects.all().delete()
