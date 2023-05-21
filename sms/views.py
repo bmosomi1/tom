@@ -1755,7 +1755,7 @@ def water_reports(request):
     }
     return render(request, 'sms/water_reports.html', context)
 def water_payments(request):
-    payments = WaterPaymentReceived.objects.all().order_by('-id').values()
+    payments = WaterPaymentReceived.objects.all().order_by('-out_date')[:600]
     context = {
         'payments': payments
     }
@@ -4918,7 +4918,8 @@ def simple_sms_resend(request, message_id):
 def water_sent_sms(request):
     customer = Customer.objects.filter(user_ptr_id=request.user.id).first()
     if customer is not None:
-        m = WaterOutbox.objects.filter().order_by('-id').values()
+        #m = WaterOutbox.objects.filter().order_by('-id').values()
+        m = WaterOutbox.objects.filter().order_by('-out_date')[:600]
         if m.count() > 0:
             # pprint(m)
             context = {
