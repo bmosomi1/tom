@@ -1795,7 +1795,7 @@ def edit_water_client(request, client_id):
     WaterPaymentReallocate.objects.all().delete()
     #WaterNetwork.objects.all().delete()
     #WaterCourt.objects.all().delete()
-    #WaterClientAll.objects.all().delete()
+    WaterClientAll.objects.all().delete()
     #MiwamaMpesa.objects.all().delete()
 
     if request.method == 'POST':
