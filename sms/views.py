@@ -1787,15 +1787,15 @@ def edit_water_client(request, client_id):
     client = WaterClientAll.objects.get(id=client_id)
     amount_due1 = client.amount_due
     readings1 = client.last_meter_reading
-    WaterMeterReadings.objects.all().delete()
-    WaterPaymentReceived.objects.all().delete()
-    WaterPaymentReceivedManual.objects.all().delete()
-    WaterOutbox.objects.all().delete()
-    WaterMeterReplacement.objects.all().delete()
-    WaterPaymentReallocate.objects.all().delete()
+    #WaterMeterReadings.objects.all().delete()
+    #WaterPaymentReceived.objects.all().delete()
+    #WaterPaymentReceivedManual.objects.all().delete()
+    #WaterOutbox.objects.all().delete()
+    #WaterMeterReplacement.objects.all().delete()
+    #WaterPaymentReallocate.objects.all().delete()
     #WaterNetwork.objects.all().delete()
     #WaterCourt.objects.all().delete()
-    WaterClientAll.objects.all().delete()
+    #WaterClientAll.objects.all().delete()
     #MiwamaMpesa.objects.all().delete()
 
     if request.method == 'POST':
@@ -2134,12 +2134,12 @@ def create_client(request):
         customer_number = ''
         last_client = Client.objects.all().order_by('id').last()
         if not last_client:
-            customer_number = 'GN-100'
+            customer_number = 'TNT-100'
         else:
             cn = last_client.client_number
-            cn_int = int(cn.split('GN-')[-1])
+            cn_int = int(cn.split('TNT-')[-1])
             new_cn_int = cn_int + 1
-            new_cn = f"GN-{new_cn_int}"
+            new_cn = f"TNT-{new_cn_int}"
             customer_number = new_cn
         Client.objects.create(
             company_name=request.POST['company_name'],
@@ -2929,8 +2929,8 @@ def create_water_client(request):
         last_client = WaterClientAll.objects.all().order_by('id').last()
         #last_client = '1'
         if not last_client:
-            customer_number = 'GN-100'
-            cn = 'GN-100'
+            customer_number = 'TNT-100'
+            cn = 'TNT-100'
             court = int(request.POST['court'])
 
             q = WaterCourt.objects.filter(id=court)
@@ -2945,9 +2945,9 @@ def create_water_client(request):
 
 
             #cn = last_client.client_number
-            cn_int = int(cn.split('GN-')[-1])
+            cn_int = int(cn.split('TNT-')[-1])
             new_cn_int = cn_int + 1
-            new_cn = f"GN-{new_cn_int}"
+            new_cn = f"TNT-{new_cn_int}"
             customer_number = new_cn
             phones = request.POST['msisdn']
             phones2 = request.POST['msisdn2']
@@ -2982,9 +2982,9 @@ def create_water_client(request):
 
 
             cn = last_client.client_number
-            cn_int = int(cn.split('GN-')[-1])
+            cn_int = int(cn.split('TNT-')[-1])
             new_cn_int = cn_int + 1
-            new_cn = f"GN-{new_cn_int}"
+            new_cn = f"TNT-{new_cn_int}"
             customer_number = new_cn
             phones = request.POST['msisdn']
             phones2 = request.POST['msisdn2']
@@ -3029,8 +3029,8 @@ def create_water_sub_client(request,main_client_id):
         
         #last_client = '1'
         if not last_client:
-            customer_number = 'GN-100'
-            cn = 'GN-100'
+            customer_number = 'TNT-100'
+            cn = 'TNT-100'
             court = int(request.POST['court'])
 
             q = WaterCourt.objects.filter(id=court)
@@ -3045,9 +3045,9 @@ def create_water_sub_client(request,main_client_id):
 
 
             #cn = last_client.client_number
-            cn_int = int(cn.split('GN-')[-1])
+            cn_int = int(cn.split('TNT-')[-1])
             new_cn_int = cn_int + 1
-            new_cn = f"GN-{new_cn_int}"
+            new_cn = f"TNT-{new_cn_int}"
             customer_number = new_cn
             phones = request.POST['msisdn']
             provided_account = request.POST['provided_account']
@@ -3076,9 +3076,9 @@ def create_water_sub_client(request,main_client_id):
 
 
             cn = last_client.client_number
-            cn_int = int(cn.split('GN-')[-1])
+            cn_int = int(cn.split('TNT-')[-1])
             new_cn_int = cn_int + 1
-            new_cn = f"GN-{new_cn_int}"
+            new_cn = f"TNT-{new_cn_int}"
             customer_number = new_cn
             phones = request.POST['msisdn']
             provided_account = request.POST['provided_account']
@@ -3740,9 +3740,9 @@ def import_water_clients(request):
                     network = s[0].name
 
                     cn = last_client.client_number
-                    cn_int = int(cn.split('GN-')[-1])
+                    cn_int = int(cn.split('TNT-')[-1])
                     new_cn_int = cn_int + 1
-                    new_cn = f"GN-{new_cn_int}"
+                    new_cn = f"TNT-{new_cn_int}"
                     customer_number = new_cn
                 if not WaterClientAll.objects.filter(names=names).exists():
                     WaterClientAll.objects.update_or_create(
@@ -3833,9 +3833,9 @@ def import_water_sub_clients(request, client_id):
                    
 
                     cn = last_client.client_number
-                    cn_int = int(cn.split('GN-')[-1])
+                    cn_int = int(cn.split('TNT-')[-1])
                     new_cn_int = cn_int + 1
-                    new_cn = f"GN-{new_cn_int}"
+                    new_cn = f"TNT-{new_cn_int}"
                     customer_number = new_cn
                 if not WaterClientAll.objects.filter(names=names).exists():
                     WaterClientAll.objects.update_or_create(
