@@ -3447,7 +3447,7 @@ def water_court_allocations(request):
         WaterCourtReallocate.objects.create(
             client=customer,
             prev_court=prev_court,
-            prev_court=prev_court,
+            
             curr_network=curr_network,
             comments=new_comment,
             client_id=client_id
