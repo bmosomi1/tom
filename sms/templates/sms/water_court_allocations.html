@@ -68,18 +68,13 @@
                 <tbody>
                 {% for allocate in courts_allocated %}
                 <tr>
-                    <td>{{ allocate.client.name }}</td>
+                    <td>{{ allocate.client.names }}</td>
                     
                      <td>{{ allocate.prev_court }}</td>
                     <td>{{ allocate.curr_court }}</td>
                     <td>{{ allocate.reallocated_date }}</td>
-                    <td>{{ allocate.comment }}</td>
+                    <td>{{ allocate.comments }}</td>
                     
-
-                    <td>{{ payment.pay_date |date:'Y:m:d' }}</td>
-
-                    <td>{{ payment.comments }}</td>
-
 
                 </tr>
                 {% endfor %}
