@@ -3462,7 +3462,7 @@ def water_court_allocations(request):
         return redirect('sms:water_payments_allocations')
     else:
         context = {
-            'courts': WaterCourt.objects.filter().order_by('names'),
+            'courts': WaterCourt.objects.filter().order_by('name'),
             'courts_allocated': WaterCourtReallocate.objects.filter().order_by('-id'),
             'clients': WaterClientAll.objects.filter().order_by('names')
         }
