@@ -3449,8 +3449,8 @@ def water_court_allocations(request):
             prev_court=prev_court,
             
             curr_network=curr_network,
-            comments=new_comment,
-            client_id=client_id
+            comments=new_comment
+            
 
         )
 
