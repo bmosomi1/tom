@@ -25,8 +25,8 @@
                     <label>Court</label> <br>
                     <select name="court_id" class="form-control" id="transaction" style="width:300px" required>
                         <option value="">SelectCurt</option>
-                        {% for client in payments %}
-                            <option value="{{ client.id }}">{{ client.names }} {{ client.court }} {{ client.network }} {{ client.account_number }} {{ client.sender_phone }}</option>
+                        {% for client in courts %}
+                            <option value="{{ client.id }}">{{ client.name }} -- {{ client.network }} {{ client.account_number }} {{ client.sender_phone }}</option>
                         {% endfor %}
                     </select>
 
@@ -36,7 +36,7 @@
                     <select name="client_id" class="form-control" id="meter" style="width:300px" required>
                         <option value="">Select client</option>
                         {% for client in clients %}
-                            <option value="{{ client.id }}">{{ client.names }} {{ client.id }} {{ client.msisdn }}</option>
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.court }} {{ client.network }}</option>
                         {% endfor %}
                     </select>
 

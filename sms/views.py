@@ -3466,7 +3466,7 @@ def water_court_allocations(request):
             'courts_allocated': WaterCourtReallocate.objects.filter().order_by('-id'),
             'clients': WaterClientAll.objects.filter().order_by('names')
         }
-        return render(request, 'sms/water_payment_allocations.html', context)
+        return render(request, 'sms/water_court_allocations.html', context)
 
 
 def water_payments_allocations(request):
