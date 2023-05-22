@@ -22,7 +22,7 @@
             <form action="{% url 'sms:water_court_allocations' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label>Court</label> <br>
+                    <label>Sub Station</label> <br>
                     <select name="court_id" class="form-control" id="transaction" style="width:300px" required>
                         <option value="">SelectCurt</option>
                         {% for client in courts %}
@@ -44,39 +44,36 @@
 
                 <div class="form-group">
                     <label>Comments</label>
-                    <input class="form-control" type="text" name="comment"  value="Reallocated Transaction" style="width:300px">
+                    <input class="form-control" type="text" name="comment"  value="Reallocate substation" style="width:300px">
                 </div>
 
-            <button type="submit" class="btn btn-sm btn-outline-primary">Allocate Payment</button>
+            <button type="submit" class="btn btn-sm btn-outline-primary">Allocate Substation</button>
             </form>
         </div>
                 <div class="tile-body">
             <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                 <tr>
-                    <th>Paid By</th>
-                    <th>Allocated To</th>
-                    <th>Account Number </th>
-                    <th>Amount</th>
-
-
-                    <th>Ref ID</th>
+                    <th>Name</th>
+                    <th>Previous Sub Station</th>
+                    <th>Current Sub Station </th>
+                  >
                    
-                    <th>Payment Date</th>
+                    <th>Reallocated Date</th>
 
                     <th>Comments</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                {% for payment in payments_allocated %}
+                {% for allocate in courts_allocated %}
                 <tr>
-                    <td>{{ payment.received_from }}</td>
-                    <td><a href="{% url 'sms:water_payments_clients' payment.account_number %}">{{ payment.account_name }}</a></td>
-
-                     <td>{{ payment.client_id }}</td>
-                    <td>{{ payment.amount }}</td>
-                    <td>{{ payment.confirmation_code }}</td>
+                    <td>{{ allocate.client.name }}</td>
+                    
+                     <td>{{ allocate.prev_court }}</td>
+                    <td>{{ allocate.curr_court }}</td>
+                    <td>{{ allocate.reallocated_date }}</td>
+                    <td>{{ allocate.comment }}</td>
                     
 
                     <td>{{ payment.pay_date |date:'Y:m:d' }}</td>
