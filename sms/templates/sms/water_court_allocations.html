@@ -1,0 +1,103 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="tile">
+        <div class="tile-body">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <a href="{% url 'sms:water_payments_unallocated' %}" class="btn btn-outline-primary pull-right"></a>
+        </div>
+            <form action="{% url 'sms:water_court_allocations' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Court</label> <br>
+                    <select name="court_id" class="form-control" id="transaction" style="width:300px" required>
+                        <option value="">SelectCurt</option>
+                        {% for client in payments %}
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.court }} {{ client.network }} {{ client.account_number }} {{ client.sender_phone }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label>Client</label> <br>
+                    <select name="client_id" class="form-control" id="meter" style="width:300px" required>
+                        <option value="">Select client</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.names }} {{ client.id }} {{ client.msisdn }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Comments</label>
+                    <input class="form-control" type="text" name="comment"  value="Reallocated Transaction" style="width:300px">
+                </div>
+
+            <button type="submit" class="btn btn-sm btn-outline-primary">Allocate Payment</button>
+            </form>
+        </div>
+                <div class="tile-body">
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                <tr>
+                    <th>Paid By</th>
+                    <th>Allocated To</th>
+                    <th>Account Number </th>
+                    <th>Amount</th>
+
+
+                    <th>Ref ID</th>
+                   
+                    <th>Payment Date</th>
+
+                    <th>Comments</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment in payments_allocated %}
+                <tr>
+                    <td>{{ payment.received_from }}</td>
+                    <td><a href="{% url 'sms:water_payments_clients' payment.account_number %}">{{ payment.account_name }}</a></td>
+
+                     <td>{{ payment.client_id }}</td>
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.confirmation_code }}</td>
+                    
+
+                    <td>{{ payment.pay_date |date:'Y:m:d' }}</td>
+
+                    <td>{{ payment.comments }}</td>
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+$('#meter').select2();
+$('#customer').select2();
+$('#transaction').select2();
+</script>
+{% endblock %}

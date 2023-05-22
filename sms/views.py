@@ -3419,6 +3419,56 @@ def water_subaccounts_allocations(request,main_id):
         }
         return render(request, 'sms/water_subaccount_allocations.html', context)
 
+
+
+
+
+def water_court_allocations(request):
+
+    if request.method == 'POST':
+        comments = request.POST['comment']
+        client_id = request.POST['client_id']
+        court_id = request.POST['trans_id']
+
+        customer = WaterClientAll.objects.filter(id=client_id).first()
+        transaction = WaterCourt.objects.filter(id=court_id).first()
+
+       
+        prev_court = customer.court
+        curr_network = transaction.network.name
+        curr_court = transaction.court
+        
+        new_comment = comments + " Orig court " + prev_court
+
+        customer.court = curr_court
+        customer.network = curr_network
+        transaction.save()
+
+        WaterCourtReallocate.objects.create(
+            client=customer,
+            prev_court=prev_court,
+            prev_court=prev_court,
+            curr_network=curr_network,
+            comments=new_comment,
+            client_id=client_id
+
+        )
+
+
+    
+
+
+        messages.success(request, 'court reallocated')
+        return redirect('sms:water_payments_allocations')
+    else:
+        context = {
+            'courts': WaterCourt.objects.filter().order_by('names'),
+            'courts_allocated': WaterCourtReallocate.objects.filter().order_by('-id'),
+            'clients': WaterClientAll.objects.filter().order_by('names')
+        }
+        return render(request, 'sms/water_payment_allocations.html', context)
+
+
 def water_payments_allocations(request):
 
     if request.method == 'POST':
@@ -3443,6 +3493,7 @@ def water_payments_allocations(request):
         transaction.is_read=old_account
         transaction.account_number = account_number
         transaction.save()
+
 
 
         WaterPaymentReallocate.objects.create(
