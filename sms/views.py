@@ -1755,7 +1755,7 @@ def water_reports(request):
     }
     return render(request, 'sms/water_reports.html', context)
 def water_payments(request):
-    payments = WaterPaymentReceived.objects.all().order_by('-out_date')[:600]
+    payments = WaterPaymentReceived.objects.all().order_by('-pay_date')[:600]
     context = {
         'payments': payments
     }
