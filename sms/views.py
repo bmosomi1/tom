@@ -3436,7 +3436,7 @@ def water_court_allocations(request):
        
         prev_court = customer.court
         curr_network = transaction.network.name
-        curr_court = transaction.court
+        curr_court = transaction.name
         
         new_comment = comments + " Orig court " + prev_court
 
