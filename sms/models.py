@@ -812,6 +812,14 @@ class WaterCourtReallocate(models.Model):
     comments = models.CharField(max_length=250, null=True)
     reallocated_date = models.DateTimeField(auto_now_add=True)
 
+class WaterCourtsReallocate(models.Model):
+    client = models.ForeignKey(WaterClientAll, on_delete=models.CASCADE)
+    curr_court = models.CharField(max_length=250)
+    prev_court = models.CharField(max_length=250)
+    curr_network = models.CharField(max_length=250)    
+    comments = models.CharField(max_length=250, null=True)
+    reallocated_date = models.DateTimeField(auto_now_add=True)
+
 class WaterSystemConfig(models.Model):
     standing_charge = models.CharField(max_length=250)
     rate = models.CharField(max_length=250)

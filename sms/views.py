@@ -3444,7 +3444,7 @@ def water_court_allocations(request):
         customer.network = curr_network
         transaction.save()
 
-        WaterCourtReallocate.objects.create(
+        WaterCourtsReallocate.objects.create(
             client=customer,
             prev_court=prev_court,
             
@@ -3463,7 +3463,7 @@ def water_court_allocations(request):
     else:
         context = {
             'courts': WaterCourt.objects.filter().order_by('name'),
-            'courts_allocated': WaterCourtReallocate.objects.filter().order_by('-id'),
+            'courts_allocated': WaterCourtsReallocate.objects.filter().order_by('-id'),
             'clients': WaterClientAll.objects.filter().order_by('names')
         }
         return render(request, 'sms/water_court_allocations.html', context)
