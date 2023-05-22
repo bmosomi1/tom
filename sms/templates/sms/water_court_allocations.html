@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <a href="{% url 'sms:water_payments_unallocated' %}" class="btn btn-outline-primary pull-right"></a>
+            <a href="{% url 'sms:water_clients' %}" class="btn btn-outline-primary pull-right"></a>
         </div>
             <form action="{% url 'sms:water_court_allocations' %}" method="post">
                 {% csrf_token %}

@@ -3428,7 +3428,7 @@ def water_court_allocations(request):
     if request.method == 'POST':
         comments = request.POST['comment']
         client_id = request.POST['client_id']
-        court_id = request.POST['trans_id']
+        court_id = request.POST['court_id']
 
         customer = WaterClientAll.objects.filter(id=client_id).first()
         transaction = WaterCourt.objects.filter(id=court_id).first()
