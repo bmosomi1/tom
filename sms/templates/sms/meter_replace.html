@@ -53,8 +53,8 @@
                     <th>Phone Number</th>
 
 
-                    <th>Court</th>
-                    <th>Network</th>
+                    <th>Sub Station</th>
+                    <th>Station</th>
                     <th>Last Readings</th>
                     <th>Amount Due</th>
                     <th>Replace Date</th>
@@ -64,14 +64,14 @@
                 <tbody>
                 {% for client in replacements %}
                 <tr>
-                    <td><a href="{% url 'sms:edit_water_client' client.id %}">{{ client.names }}</a></td>
+                    <td><a href="{% url 'sms:edit_water_client' client.id %}">{{ client.client.names }}</a></td>
                     <td>{{ client.meter_number }}</td>
-                    <td>{{ client.phone_number }}</td>
-                    <td>{{ client.court }}</td>
+                    <td>{{ client.client.msisdn }}</td>
+                    <td>{{ client.client.court }}</td>
 
-                    <td>{{ client.network }}</td>
+                    <td>{{ client.client.network }}</td>
                     <td>{{ client.last_units }}</td>
-                    <td>{{ client.amount_due }}</td>
+                    <td>{{ client.client.amount_due }}</td>
                     <td>{{ client.created_at|date:'Y:m:d' }}</td>
                     <td>
                         <a href="{% url 'sms:edit_water_client' client.id %}" title="Edit" class="btn btn-outline-primary btn-sm"><i class="fa fa-edit fa-lg"></i></a>
