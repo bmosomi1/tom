@@ -738,11 +738,11 @@ def multi_search(request):
             try:
                 int(search_key)
                 client = WaterClientAll.objects.raw('SELECT * FROM sms_waterclientall where id= %s or msisdn=%s or id_num=%s ', [search_key, search_key, search_key])
-                payments = WaterPaymentReceived.objects.raw('SELECT * FROM sms_waterpaymentreceived where account_number= %s or dest_msisdn=%s', [search_key, search_key])
+                payments = WaterPaymentReceived.objects.raw('SELECT * FROM sms_waterpaymentreceived where account_number= %s or dest_msisdn=%s orderby id desc', [search_key, search_key])
                 #payments = WaterPaymentReceived.objects.filter(confirmation_code__exact=search_key)
                 readings = WaterMeterReadings.objects.raw('SELECT * FROM sms_watermeterreadings where account_number_id= %s or msisdn=%s order by id desc', [search_key, search_key])
-                bill_sent = WaterBillSent.objects.raw('SELECT * FROM sms_waterbillsent where account_number_id= %s or dest_msisdn=%s', [search_key, search_key])
-                messages_sent = WaterOutbox.objects.raw('SELECT * FROM water_outbox where dest_msisdn=%s', [search_key])
+                bills_sent = WaterBillSent.objects.raw('SELECT * FROM sms_waterbillsent where account_number_id= %s or dest_msisdn=%s order by id desc', [search_key, search_key])
+                messages_sent = WaterOutbox.objects.raw('SELECT * FROM water_outbox where dest_msisdn=%s order by id desc', [search_key])
             except ValueError:
                 if len(search_key)>2:
                     client = WaterClientAll.objects.filter(names__icontains=search_key)
@@ -754,8 +754,8 @@ def multi_search(request):
                 payments = WaterPaymentReceived.objects.raw('SELECT * FROM green_note.sms_waterpaymentreceived where account_number= %s or dest_msisdn=%s order by id desc', [search_key, search_key])
                 #payments = WaterPaymentReceived.objects.filter(account_number=search_key)
                 readings = WaterMeterReadings.objects.raw('SELECT * FROM sms_watermeterreadings where account_number_id= %s or msisdn=%s order by id desc', [search_key, search_key])
-                bill_sent = WaterBillSent.objects.raw('SELECT * FROM sms_waterbillsent where account_number_id= %s or dest_msisdn=%s', [search_key, search_key])
-                messages_sent = WaterOutbox.objects.raw('SELECT * FROM water_outbox where dest_msisdn=%s', [search_key])
+                bills_sent = WaterBillSent.objects.raw('SELECT * FROM sms_waterbillsent where account_number_id= %s or dest_msisdn=%s order by id desc', [search_key, search_key])
+                messages_sent = WaterOutbox.objects.raw('SELECT * FROM water_outbox where dest_msisdn=%s order by id desc', [search_key])
 
 
 
