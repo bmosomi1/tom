@@ -1950,7 +1950,7 @@ def meter_readings_sms(request):
     context = {
         'meter_readings': meter_readings_sms
     }
-    return render(request, 'sms/meter_readings_sms.html', context)
+    return render(request, 'sms/meter_reading_sms.html', context)
 
 
 def main_readings(request):
