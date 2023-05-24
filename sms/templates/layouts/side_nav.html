@@ -25,6 +25,7 @@
     {% url 'sms:water_payments' as water_payments %}
     {% url 'sms:water_payments_allocations' as water_payments_allocations %}
     {% url 'sms:water_system_config' as water_system_config %}
+    {% url 'sms:meter_readers' as meter_readers %}
 
 {#    {% url 'ShortCode:subs' as subs %}#}
     {% url 'ShortCode:incoming_sms' as incoming_sms %}
@@ -217,6 +218,14 @@
                 {% endif %} href="{{ main_meter }}">
                     <i class="app-menu__icon fa fa-dashboard"></i>
                     <span class="app-menu__label">Main Account</span></a>
+            </li>
+            <li>
+                <a {% if request.path == main_meter %} class="app-menu__item active"
+                {% else %}
+                      class="app-menu__item"
+                {% endif %} href="{{ meter_readers }}">
+                    <i class="app-menu__icon fa fa-dashboard"></i>
+                    <span class="app-menu__label">Meter Readers</span></a>
             </li>
           <!--
             <li>
