@@ -1715,6 +1715,27 @@ def water_courts(request):
             'groups': groups
         }
         return render(request, 'sms/contacts.html', context)
+
+def meter_readers(request):
+    customer = Customer.objects.filter(id=request.user.id).first()
+    if customer is not None:
+        readers = MeterReaders.objects.all()
+
+        context = {
+
+            'readers': readers
+        }
+        return render(request, 'sms/meter_readers.html', context)
+    else:
+        customer = CustomerSubAccounts.objects.filter(user_ptr_id=request.user.id).first().owner
+        groups = Group.objects.filter(customer=customer.id)
+
+        context = {
+            'customer': customer,
+            'groups': groups
+        }
+        return render(request, 'sms/contacts.html', context)
+
 #0702455926
 def water_clienter(request):
     customer = Customer.objects.filter(user_ptr_id=request.user.id).first()

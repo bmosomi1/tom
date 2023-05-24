@@ -250,6 +250,21 @@ class WaterNetwork(models.Model):
     class Meta:
         verbose_name = 'Network'
         verbose_name_plural = 'Netowrks'
+class MeterReaders(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    phone_number = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    comment = models.FloatField( default=0,null=True)
+    standing_charge = models.FloatField( default=100,null=True)
+    connected_clients = models.IntegerField(default=0, null=True)
+    reading = models.FloatField(max_length=250, default=0,null=True)
+    read_date = models.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Network'
+        verbose_name_plural = 'Netowrks'
 class WaterCustomerNetwork(models.Model):
     #customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)

@@ -1,0 +1,72 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+{% load filters %}
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+{#    <div class="app-title">#}
+{#        <div>#}
+{#          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>#}
+{#            <h2>Welcome, <strong> {{request.user.username}} </strong></h2>#}
+{#          <p></p>#}
+{#        </div>#}
+{#        <ul class="app-breadcrumb breadcrumb">#}
+{#          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>#}
+{#          <li class="breadcrumb-item"><a href="#">Contact Groups</a></li>#}
+{#        </ul>#}
+{#      </div>#}
+    <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Meter Readers</h3>
+              
+              <p>
+                  {% if customer.id == 342 %}
+                      <a class="btn btn-primary icon-btn" href="{% url 'sms:st_ann_add_patient' %}"><i class="fa fa-plus"></i>Add Patient</a>
+                  {% endif %}
+                  <a class="btn btn-primary icon-btn" href="{% url 'sms:create_water_network' %}"><i class="fa fa-plus"></i>Add Station</a>
+              </p>
+            </div>
+            <div class="tile-body table-responsive">
+                <table class="table table-hover table-bordered" id="sampleTable">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Date Added</th>
+                        
+
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reader in readers %}
+                    
+                    <tr>
+
+                        <td><a href="#">{{ reader.name }}</a></td>
+
+                        <td>{{ reader.phone_number }}</td>
+                        <td>{{ reader.created_at}}</td>
+                        
+                         <td>
+                            <div class="btn-group">
+                                <a class="btn btn-outline-warning" href="{% url 'sms:edit_water_network' reader.id %}"><i class="fa fa-lg fa-edit"></i>Edit</a>
+                                <button class="btn btn-outline-danger" style="margin-left: 2px"  onclick="confirm({{ reader.id }})"><i class="fa fa-lg fa-trash"></i>Delete</button>
+                            </div>
+
+
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
