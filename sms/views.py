@@ -3584,7 +3584,7 @@ def add_meter_reader(request):
     customer = Customer.objects.filter(id=request.user.id).first()
     if customer is not None:
         if request.method == "POST":
-            MeterReader.objects.create(
+            MeterReaders.objects.create(
                 customer=customer,
                 name=request.POST['name'],
                 phone_number=request.POST['phone_number'],
