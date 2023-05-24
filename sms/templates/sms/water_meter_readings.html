@@ -17,14 +17,15 @@
                 <h3>Meter Readings</h3>
             </div>
             <div class="col-sm-6">
+                <a href="{% url 'sms:meter_readers' %}" class="btn btn-primary pull-right">Meter Readers</a>
+            </div>
+            <div class="col-sm-6">
                 <a href="{% url 'sms:bills_sent' %}" class="btn btn-primary pull-right">Bills Sent</a>
             </div>
             <div class="col-sm-6">
                 <a href="{% url 'sms:add_meter_readings' %}" class="btn btn-primary pull-right">Add Meter Readings</a>
             </div>
-            <div class="col-sm-6">
-                <a href="{% url 'sms:meter_readers' %}" class="btn btn-primary pull-right">Meter Readers</a>
-            </div>
+            
 
             <div class="">
                 <a href="{% url 'sms:add_fines' %}" class="btn btn-primary pull-right">Add Fines</a>
@@ -54,9 +55,9 @@
 
 
                     <td>{{ meter_reading.account_number.id }}</td>
-                    <td>{{ meter_reading.readings |floatformat:2 }}</td>
+                    <td>{{ meter_reading.readings }}</td>
                     <td>{{ meter_reading.previous_reading }}</td>
-                    <td>{{ meter_reading.units_consumed }}</td>
+                    <td>{{ meter_reading.units_consumed | floatformat:2 }}</td>
                     <td>{{ meter_reading.read_date |date:'Y-m-d H:i' }}</td>
 
                     <td>{{ meter_reading.reading_type }}</td>
