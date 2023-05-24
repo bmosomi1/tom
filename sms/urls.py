@@ -49,6 +49,7 @@ urlpatterns = [
     path('water/court/allocations', views.water_court_allocations, name='water_court_allocations'),
     path('water/courts', views.water_courts, name='water_courts'),
     path('meter/readers', views.meter_readers, name='meter_readers'),
+    path('add/meter/reader', views.add_meter_reader, name='add_meter_reader'),
     #path('water/courts/network', views.water_courts_network, name='water_courts_network'),
     path('create/water/network', views.create_water_network, name='create_water_network'),
     path('edit/client/<int:client_id>', views.edit_water_client, name='edit_water_client'),

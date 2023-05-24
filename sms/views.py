@@ -1833,7 +1833,7 @@ def edit_water_client(request, client_id):
         client.court = request.POST['court']
         client.email_address = request.POST['email_address']
         client.last_meter_reading = int(float(request.POST['last_meter_reading']))
-        client.customer_rate = int(float(request.POST['customer_rate'])or 0) 
+        client.customer_rate = int(float(request.POST['customer_rate']))
         client.standing_charge = int(float(request.POST['standing_charge']))
         client.amount_due = int(float(request.POST['amount_due']))
         client.save()
@@ -3580,7 +3580,29 @@ def roberms_login(request):
             messages.error(request, 'Invalid Email Or Password')
             return redirect('sms:login')
     return render(request, 'registration/login.html')
-
+def add_meter_reader(request):
+    customer = Customer.objects.filter(id=request.user.id).first()
+    if customer is not None:
+        if request.method == "POST":
+            MeterReader.objects.create(
+                customer=customer,
+                name=request.POST['name'],
+                phone_number=request.POST['phone_number'],
+                comment=request.POST['comment']
+            )
+            return redirect('sms:meter_readers')
+        return render(request, 'sms/create_reader.html')
+    else:
+        customer = CustomerSubAccounts.objects.filter(id=request.user.id).first().owner
+        if request.method == "POST":
+            Group.objects.create(
+                customer_id=customer,
+                name=request.POST['name'],
+                standing_charge=request.POST['phone_number'],
+                rate=request.POST['comment']
+            )
+            return redirect('sms:meter_readers')
+        return render(request, 'group/create_reader.html')
 
 def create_water_network(request):
     customer = Customer.objects.filter(id=request.user.id).first()
