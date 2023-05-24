@@ -64,6 +64,7 @@ urlpatterns = [
     path('client/bills/<int:client_id>', views.client_bills, name='client_bills'),
     #path('client_invoices/<int:client_id>', views.client_invoices, name='client_invoices'),
     path('meter/readings', views.meter_readings, name='meter_readings'),
+    path('meter/readings/sms', views.meter_readings_sms, name='meter_readings_sms'),
     path('main/readings', views.main_readings, name='main_readings'),
     path('bills/sent', views.bills_sent, name='bills_sent'),
     path('meter/readings/<int:client_id>', views.meter_readings_clients, name='meter_readings_clients'),

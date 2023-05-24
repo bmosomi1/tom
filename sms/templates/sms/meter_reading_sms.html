@@ -20,13 +20,11 @@
             <div class="col-sm-6">
                 <a href="{% url 'sms:bills_sent' %}" class="btn btn-primary pull-right">Bills Sent</a>
             </div>
-            <div class="col-sm-6">
-                <a href="{% url 'sms:add_meter_readings' %}" class="btn btn-primary pull-right">Add Meter Readings</a>
-            </div>
+            
             
 
             <div class="">
-                <a href="{% url 'sms:meter_reading_sms' %}" class="btn btn-primary pull-right">sms Readings</a>
+                <a href="{% url 'sms:add_fines' %}" class="btn btn-primary pull-right">Add Fines</a>
             </div>
         </div>
         <hr>
@@ -43,7 +41,7 @@
                     <th>Units</th>
                     <th>Reading Date</th>
 
-                    <th>Reading Type</th>
+                    <th>Read by</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,7 +56,7 @@
                     <td>{{ meter_reading.units_consumed | floatformat:2 }}</td>
                     <td>{{ meter_reading.read_date |date:'Y-m-d H:i' }}</td>
 
-                    <td>{{ meter_reading.reading_type }}</td>
+                    <td>{{ meter_reading.read_by }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

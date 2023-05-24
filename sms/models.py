@@ -406,6 +406,46 @@ class WaterConfigtAll(models.Model):
         verbose_name = 'Water'
         verbose_name_plural = 'Waters'
 
+
+class WaterMeterReadingSmsRaw(models.Model):
+    names = models.CharField(max_length=250)
+    msisdn = models.CharField(max_length=250)    
+    account_number = models.ForeignKey(WaterClientAll, on_delete=models.CASCADE)
+    id_num = models.CharField(max_length=250, null=True)
+    meter_num = models.CharField(max_length=250, null=True)
+    customer_rate = models.CharField(max_length=250, null=True)
+    reading_type = models.CharField(max_length=250, null=True)
+    read_by = models.CharField(max_length=250, null=True)
+    last_meter_reading_date = models.CharField(max_length=250, null=True)
+    comment = models.EmailField(max_length=250, null=True)
+    court = models.CharField(max_length=250, null=True)
+    network = models.CharField(max_length=250, null=True)
+    previous_reading = models.FloatField(max_length=250, default=0,null=True)
+    rate = models.FloatField(max_length=250, default=0,null=True)
+    standing_charge = models.FloatField(max_length=250, default=0,null=True)
+    water_levy = models.FloatField(max_length=250, default=0,null=True)
+    readings = models.FloatField(max_length=250, default=0, null=True)
+    amount_from_units = models.FloatField(max_length=250, default=0, null=True)
+    credit = models.FloatField(max_length=250, default=0, null=True)
+    arrears = models.FloatField(max_length=250, default=0, null=True)
+    amount_due = models.FloatField(max_length=250, default=0,null=True)
+    payable = models.FloatField(max_length=250, default=0, null=True)
+    confirmed = models.IntegerField(max_length=250, default=0, null=True)
+    processed = models.IntegerField(max_length=250, default=0, null=True)
+    message = models.IntegerField(max_length=250, default=0, null=True)
+    units_consumed = models.FloatField(max_length=250, default=0,null=True)
+    last_payment_date = models.CharField(max_length=250, null=True)
+    meter_change_date = models.CharField(max_length=250, null=True)
+    connection_fee_paid = models.FloatField(max_length=250, default=0,null=True)
+    read_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'water_meterreading'
+        verbose_name_plural = 'water_meterreadings'
+
+
+
+
 class WaterMeterReadings(models.Model):
     names = models.CharField(max_length=250)
     msisdn = models.CharField(max_length=250)    

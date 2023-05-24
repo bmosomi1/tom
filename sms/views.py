@@ -1942,6 +1942,17 @@ def meter_readings(request):
     }
     return render(request, 'sms/water_meter_readings.html', context)
 
+def meter_readings_sms(request):
+    #meter_readings = WaterMeterReadings.objects.all()
+    meter_readings_sms = WaterMeterReadingSmsRaw.objects.all().order_by('-read_date')[:600]
+    #meter_readingss = WaterMeterReadings.objects.all().delete()
+
+    context = {
+        'meter_readings': meter_readings_sms
+    }
+    return render(request, 'sms/water_meter_readings.html', context)
+
+
 def main_readings(request):
     meter_readings = WaterMainReadings.objects.all()
     #meter_readingss = WaterMainReadings.objects.all().delete()
