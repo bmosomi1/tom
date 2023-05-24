@@ -1833,7 +1833,7 @@ def edit_water_client(request, client_id):
         client.court = request.POST['court']
         client.email_address = request.POST['email_address']
         client.last_meter_reading = int(float(request.POST['last_meter_reading']))
-        client.customer_rate = int(float(request.POST['customer_rate']))
+        client.customer_rate = int(float(request.POST['customer_rate'])or 0) 
         client.standing_charge = int(float(request.POST['standing_charge']))
         client.amount_due = int(float(request.POST['amount_due']))
         client.save()
