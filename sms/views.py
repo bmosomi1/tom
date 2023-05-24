@@ -1963,7 +1963,8 @@ def main_readings(request):
     return render(request, 'sms/water_main_readings.html', context)
 
 def bills_sent(request):
-    bills_sent = WaterBillSent.objects.all()
+    #bills_sent = WaterBillSent.objects.all()
+    bills_sent = WaterBillSent.objects.all().order_by('-id')[:300]
     #meter_readingss = WaterMeterReadings.objects.all().delete()
 
     context = {
