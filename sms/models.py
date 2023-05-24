@@ -256,7 +256,7 @@ class MeterReaders(models.Model):
     phone_number = models.CharField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    comment = models.FloatField( default=0,null=True)
+    comment = models.CharField(default=0,max_length=250,null=True)
     standing_charge = models.FloatField( default=100,null=True)
     connected_clients = models.IntegerField(default=0, null=True)
     reading = models.FloatField(max_length=250, default=0,null=True)
