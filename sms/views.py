@@ -1950,7 +1950,7 @@ def meter_readings_sms(request):
     context = {
         'meter_readings': meter_readings_sms
     }
-    return render(request, 'sms/water_meter_readings.html', context)
+    return render(request, 'sms/water_meter_readings_sms.html', context)
 
 
 def main_readings(request):
