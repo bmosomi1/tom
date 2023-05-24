@@ -1884,6 +1884,28 @@ def edit_water_network(request, network_id):
     }
     return render(request, 'sms/edit_network.html', context)
 
+def edit_meter_reader(request, reader_id):
+    client = MeterReaders.objects.get(id=reader_id)
+    if request.method == 'POST':
+        phones = request.POST['phone_number']
+        phone_number = f"{0}{phones.replace(' ', '')[-9:]}"
+        
+        client.phone_number = phone_number
+        client.name = request.POST['name']
+        client.comment = request.POST['comment']
+        
+        client.save()
+        #WaterNetwork.delete(self)
+
+       
+
+        messages.success(request, request.POST['phone_number'])
+        return redirect('sms:meter_readers')
+    context = {
+        'client': client
+    }
+    return render(request, 'sms/edit_meter_reader.html', context)
+
 def edit_sys_config(request, client_id):
     client = WaterSysConf.objects.get(id=client_id)
     if request.method == 'POST':
@@ -3584,10 +3606,11 @@ def add_meter_reader(request):
     customer = Customer.objects.filter(id=request.user.id).first()
     if customer is not None:
         if request.method == "POST":
+            phone_numbers=request.POST['phone_number']
             MeterReaders.objects.create(
                 customer=customer,
                 name=request.POST['name'],
-                phone_number=request.POST['phone_number'],
+                phone_number = f"{0}{phone_numbers.replace(' ', '')[-9:]}",
                 comment=request.POST['comment']
             )
             return redirect('sms:meter_readers')

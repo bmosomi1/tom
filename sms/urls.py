@@ -54,6 +54,7 @@ urlpatterns = [
     path('create/water/network', views.create_water_network, name='create_water_network'),
     path('edit/client/<int:client_id>', views.edit_water_client, name='edit_water_client'),
     path('edit/water/station/<int:network_id>', views.edit_water_network, name='edit_water_network'),
+    path('edit/meter/reader/<int:reader_if>', views.edit_meter_reader, name='edit_meter_reader'),
     path('invoice/preview/<int:invoice_id>', views.invoice_preview, name='invoice_preview'),
     path('bill/preview/<int:invoice_id>', views.bill_preview, name='bill_preview'),
     path('statement/preview/<int:client_id>', views.statement_preview, name='statement_preview'),
