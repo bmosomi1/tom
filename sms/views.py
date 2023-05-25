@@ -2326,7 +2326,7 @@ def add_main_readings(request):
 def add_meter_readings(request):
 
     if request.method == 'POST':
-        readings = request.POST['readings']
+        readings = float(request.POST['readings'])
         account_num = request.POST['client']
 
 
