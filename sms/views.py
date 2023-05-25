@@ -2345,7 +2345,7 @@ def add_meter_readings(request):
         amount_2 = q[0].amount_2
 
         last_meter_reading = q[0].last_meter_reading
-        units_consumed=int(readings)-int(last_meter_reading)
+        units_consumed=float(readings)-float(last_meter_reading)
         if units_consumed>0:
             amount_from_units=(units_consumed*rate)+standing_charge
 
