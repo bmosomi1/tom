@@ -29,9 +29,8 @@
                 <tr>
                     <th>Names</th>
                     <th>Account Number</th>
-                    <th>Phone Number</th>
-                    <th>Readings</th>
-                    <th>Units Consumed</th>
+                    <th>Text Message</th>
+                    
                     <th>Reading Date</th>
 
                     
@@ -44,13 +43,13 @@
 
 
                     <td>{{ bills.account_number }}</td>
-                    <td>{{ bills.dest_msisdn }}</td>
                     
-                    <td>{{ bills.curr_reading }}</td>
-                    <td>{{ bills.units_consumed }}</td>
+                    
+                    <td>{{ bills.text_message }}</td>
+                    
                     <td>{{ bills.read_date |date:'Y-m-d H:i' }}</td>
 
-                    <td>{{ bills.reading_type }}</td>
+                    
                 </tr>
                 {% endfor %}
                 </tbody>

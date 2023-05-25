@@ -29,6 +29,7 @@
                     <th>Received On</th>
 
                     <th>Accout Name</th>
+                    <th>A/C</th>
                     <th>Amount</th>
 
                     <th>Received From</th>
@@ -41,9 +42,9 @@
                 <tbody>
                 {% for client in payments %}
                 <tr>
-                     <td>{{ client.pay_date|date:'Y:m:d' }}</td>
+                     <td>{{ client.pay_date|date:'Y:m:d H:i' }}</td>
                     <td><a href="{% url 'sms:water_payments_clients' client.client_id %}">{{ client.account_name }}</a></td>
-
+                    <td>{{ client.account_number }}</td>
                     <td>{{ client.amount }}</td>
                     <td>{{ client.received_from }}</td>
                     <td>{{ client.confirmation_code }}</td>

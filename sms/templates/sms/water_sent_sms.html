@@ -36,7 +36,7 @@
                 <tr>
                     <td><a href="#">{{ outgoing.dest_msisdn }}</a></td>
                     <td>{{ outgoing.text_message }}</td>
-                    <td>{{ outgoing.out_date|date:'Y:m:d H:' }}</td>
+                    <td>{{ outgoing.out_date|date:'Y:m:d H:i' }}</td>
                     <td>{{ outgoing.delivery_status }}</td>
                     <td><a href="{% url 'sms:simple_sms_resend' outgoing.id %}">Resend</a></td>
 
