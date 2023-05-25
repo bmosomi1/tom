@@ -1832,7 +1832,7 @@ def edit_water_client(request, client_id):
         client.msisdn2 = phone_number2
         client.court = request.POST['court']
         client.email_address = request.POST['email_address']
-        client.last_meter_reading = int(float(request.POST['last_meter_reading']))
+        client.last_meter_reading = float(request.POST['last_meter_reading'])
         client.customer_rate = int(float(request.POST['customer_rate']))
         client.standing_charge = int(float(request.POST['standing_charge']))
         client.amount_due = int(float(request.POST['amount_due']))
