@@ -3045,6 +3045,7 @@ def create_water_client(request):
             customer_number = new_cn
             phones = request.POST['msisdn']
             phones2 = request.POST['msisdn2']
+            client_name = request.POST['names']
             phone_number = f"{0}{phones.replace(' ', '')[-9:]}"
             phone_number2 = f"{0}{phones2.replace(' ', '')[-9:]}"
         WaterClientAll.objects.update_or_create(
@@ -3062,6 +3063,24 @@ def create_water_client(request):
 
 
         )
+        test = "Dear ..... Your  account is....... ensure that you put the paybill 4047479 and  account number......when paying for water bill.  Help line 0712730611"
+        dear = "Dear "
+        your = ", Your  account is "
+        account_num = str(new_cn_int)
+        ensure = ". ensure that you put the paybill 4047479 and  account number "
+        paying = " when paying for water bill.  Help line 0712730611"
+        client_message = dear + client_name + your + account_num + ensure + account_num + paying
+
+        WaterOutbox.objects.create(
+            dest_msisdn=phone_number,
+            text_message=client_message,
+            user_id=100,
+            client=new_cn_int
+            
+
+
+        )
+        
         messages.success(request, 'Water Client Added Successfully')
         return redirect('sms:water_clients')
     context = {
