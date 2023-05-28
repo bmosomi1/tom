@@ -2068,7 +2068,7 @@ def disconnection_reminder(request, client_id):
     client_balance=str(client.amount_due)
     dear = "Dear "
     final = ", You are listed for disconnection due to your outstanding water bill of Ksh."
-    payment = ". clear your bill through our Paybill 499086, account "
+    payment = ". clear your bill through our Paybill 4047479, account "
     disconnection = " to avoid disconnection."
     client_message = dear  +  client_name + final + client_balance + payment + account_client  + disconnection
        
