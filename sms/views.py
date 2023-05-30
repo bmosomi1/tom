@@ -2606,7 +2606,7 @@ def meter_readings_report(request):
             number = 1
             for cust in customer:
                 #summary_sheet.append((cust.id, cust.names, cust.last_meter_reading))
-                summary_sheet.append((cust.pay_date, cust.account_number, cust.account_name,cust.amount,cust.received_from,cust.confirmation_code ,cust.balance_carried_forward,cust.client.network))
+                summary_sheet.append((cust.pay_date, cust.account_number, cust.account_name,int(float(cust.amount)),cust.received_from,cust.confirmation_code ,cust.balance_carried_forward,cust.client.network))
                 number += 1
 
             workbook.save(full_path)
