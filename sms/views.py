@@ -1866,6 +1866,25 @@ def edit_water_client(request, client_id):
     }
     return render(request, 'sms/edit_water_client.html', context)
 
+
+def edit_sms_reading(request, reading_id):
+    client = WaterMeterReadingSmsRaw.objects.get(id=reading_id)
+    if request.method == 'POST':
+        client.readings = request.POST['readings']
+        #client.rate = request.POST['rate']
+        
+        client.save()
+        #WaterNetwork.delete(self)
+
+       
+
+        messages.success(request, request.POST['readings'])
+        return redirect('sms:meter_readings_sms')
+    context = {
+        'client': client
+    }
+    return render(request, 'sms/edit_sms_reading.html', context)
+
 def edit_water_network(request, network_id):
     client = WaterNetwork.objects.get(id=network_id)
     if request.method == 'POST':
