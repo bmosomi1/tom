@@ -61,7 +61,7 @@
                     <td>{{ meter_reading.read_by }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-outline-warning" href="{% url 'sms:edit_sms_reading' 569 %}"><i class="fa fa-lg fa-edit"></i>Edit</a>
+                            <a class="btn btn-outline-warning" href="{% url 'sms:edit_sms_reading' meter_reading.id %}"><i class="fa fa-lg fa-edit"></i>Edit</a>
                             <button class="btn btn-outline-danger" style="margin-left: 2px"  onclick="confirm({{ reading.id }})"><i class="fa fa-lg fa-trash"></i>Delete</button>
                         </div>
                     </td>
