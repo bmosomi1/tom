@@ -2812,12 +2812,12 @@ def meter_readings_report(request):
             #cell.value = 'Meter Readings'
             #cell.alignment = Alignment(horizontal='center', vertical='center')
             #summary_sheet.merge_cells('A1:B1')
-            summary_sheet.append(('A/C','NAMES', 'PHONE NUMBER', 'ID NUMBER', 'STATION','LAST READING DATE', 'READINGS','AMOUNT DUE'))
+            summary_sheet.append(('A/C','NAMES', 'PHONE NUMBER', 'ID NUMBER', 'STATION','SUB STATION','LAST READING DATE', 'READINGS','AMOUNT DUE'))
 
             number = 1
             for cust in customer:
                 #summary_sheet.append((cust.id, cust.names, cust.last_meter_reading))
-                summary_sheet.append((cust.id, cust.names, cust.msisdn,cust.id_num,cust.network,cust.last_meter_reading_date,cust.last_meter_reading,cust.amount_due))
+                summary_sheet.append((cust.id, cust.names, cust.msisdn,cust.id_num,cust.network,cust.court,cust.last_meter_reading_date,cust.last_meter_reading,cust.amount_due))
                 number += 1
 
             workbook.save(full_path)
