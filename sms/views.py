@@ -901,6 +901,7 @@ def main_meter(request):
             one_month_ago = one_month_ago - datetime.timedelta(days=30)
         this_day = datetime.datetime.now()
         today_month = this_day.month
+        today_year = this_day.year
         yesterday_month = today_month - 1
             
        
@@ -916,8 +917,8 @@ def main_meter(request):
             'outbox': WaterMeterReadings.objects.filter().count(),
             'main_accounts': WaterNetwork.objects.filter().count(),
             'this_month' : this_month,
-            'this_month_collections': WaterPaymentReceived.objects.filter(pay_date__month=today_month).aggregate(total=Sum('amount'))['total'] or 0,
-            'last_month_collections': WaterPaymentReceived.objects.filter(pay_date__month=yesterday_month).aggregate(total=Sum('amount'))['total'] or 0,
+            'this_month_collections': WaterPaymentReceived.objects.filter(pay_date__month=today_month,pay_date__year=today_year).aggregate(total=Sum('amount'))['total'] or 0,
+            'last_month_collections': WaterPaymentReceived.objects.filter(pay_date__month=yesterday_month,pay_date__year=today_year).aggregate(total=Sum('amount'))['total'] or 0,
             'tobe_collected': WaterClientAll.objects.filter().aggregate(total=Sum('amount_due'))['total'] or 0,
             'unallocated_payments': MiwamaMpesa.objects.filter(processed=2).count(),
             'admins': CustomerSubAccounts.objects.filter(owner=customer.id).count() + 1
