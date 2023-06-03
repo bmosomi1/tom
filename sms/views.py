@@ -226,6 +226,7 @@ def water_revenues(request):
         current_day = datetime.datetime.today()
         current_month = datetime.datetime.today()
         this_month = current_day.month
+        this_year = current_day.year
         the_month_nam = current_day.month
         number_index = 1
         
@@ -240,8 +241,8 @@ def water_revenues(request):
         for month in months:
         
     
-            payments_received = int(WaterPaymentReceived.objects.filter(pay_date__month=this_month).aggregate(total=Sum('amount'))['total'] or 0)
-            expected_payments = int(WaterMeterReadings.objects.filter(read_date__month=this_month).aggregate(total=Sum('amount_from_units'))['total'] or 0)
+            payments_received = int(WaterPaymentReceived.objects.filter(pay_date__month=this_month,pay_date__year=this_year).aggregate(total=Sum('amount'))['total'] or 0)
+            expected_payments = int(WaterMeterReadings.objects.filter(read_date__month=this_month,read_date__year=this_year).aggregate(total=Sum('amount_from_units'))['total'] or 0)
             deviat = expected_payments - payments_received
             thiss_month = calendar.month_name[this_month]
             payments_r.append(payments_received)
@@ -883,6 +884,7 @@ def main_meter(request):
         one_month_ago = datetime.datetime.today() - datetime.timedelta(days=30)
         current_day = datetime.datetime.today()
         this_month = current_day.month
+        today_year = this_day.year
         monthly_all_consumptions = []
         monthss=[]
         for month in months:
