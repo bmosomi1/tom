@@ -224,8 +224,10 @@ def water_revenues(request):
         weeks = get_last_n_weeks(10)
         one_month_ago = datetime.datetime.today() - datetime.timedelta(days=30)
         current_day = datetime.datetime.today()
+        current_day_today = datetime.datetime.today()
         current_month = datetime.datetime.today()
         this_month = current_day.month
+        this_month_current_month = current_day.month
         this_year = current_day.year
         the_month_nam = current_day.month
         number_index = 1
@@ -239,6 +241,8 @@ def water_revenues(request):
         index_numbers = []
         mydeviation = []
         for month in months:
+            if this_month>this_month_current_month:
+                this_year=this_year-1
         
     
             payments_received = int(WaterPaymentReceived.objects.filter(pay_date__month=this_month,pay_date__year=this_year).aggregate(total=Sum('amount'))['total'] or 0)
@@ -255,6 +259,7 @@ def water_revenues(request):
             current_day = current_day - datetime.timedelta(days=30)
             this_month = current_day.month
             number_index = number_index + 1
+            
             
             one_month_ago = one_month_ago - datetime.timedelta(days=30)
             current_month = current_month - datetime.timedelta(days=30)
