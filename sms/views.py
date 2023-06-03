@@ -884,7 +884,7 @@ def main_meter(request):
         one_month_ago = datetime.datetime.today() - datetime.timedelta(days=30)
         current_day = datetime.datetime.today()
         this_month = current_day.month
-        today_year = this_day.year
+        today_year = current_day.year
         monthly_all_consumptions = []
         monthss=[]
         for month in months:
