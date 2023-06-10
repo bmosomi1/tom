@@ -39,7 +39,7 @@
                 <tr>
                     <td><a href="{% url 'sms:client_dashboard' client.id %}">{{ client.names }}</a></td>
                    <!--<td><a href="{% url 'Invoices:invoice_services' invoice.id %}">{{ invoice.client.company_name }}</a></td>--> 
-                    <td>{{ invoice.account_number }}</td>
+                    <td>{{ invoice.account_number.id }}</td>
                     <td>{{ invoice.read_date }}</td>
                     <td>{{ invoice.units_consumed }}</td>
                     <td>{{ invoice.amount_from_units }}</td>
