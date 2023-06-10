@@ -300,10 +300,12 @@ def water_revenues(request):
 def client_invoices(request, client_id):
     client = WaterClientAll.objects.get(id=client_id)
     invoices = WaterMeterReadings.objects.filter(account_number=client_id).order_by('-id').values()
+    invoice_nums = WaterMeterReadings.objects.filter(account_number=client_id)
 
     context = {
         'client': client,
         'invoices': invoices,
+        'invoice_nums': invoice_nums,
         'client_id': client_id
     }
     return render(request, 'sms/client_invoices.html', context)
