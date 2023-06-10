@@ -57,7 +57,7 @@
                             <a href="{#}" id="invoice_delete"></a>
                         </div>
                     --> <a href="{% url 'sms:invoice_preview' invoice.id %}" title="" class="btn btn-outline-primary btn-sm">Invoice Preview</a>
-                        <a href="{% url 'sms:invoice_preview' invoice.id %}" class="btn btn-outline-primary btn-sm" >Payment</a>
+                        <a href="{% url 'sms:water_payments_clients' invoice.acount_number %}" class="btn btn-outline-primary btn-sm" >Payment</a>
                     </td>
                 </tr>
                 {% endfor %}
