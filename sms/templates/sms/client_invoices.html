@@ -39,7 +39,7 @@
                 <tr>
                     <td><a href="{% url 'sms:client_dashboard' client.id %}">{{ client.names }}</a></td>
                    <!--<td><a href="{% url 'Invoices:invoice_services' invoice.id %}">{{ invoice.client.company_name }}</a></td>--> 
-                    <td>{{ invoice.account_number.id }}</td>
+                    <td>{{ invoice.account_number }}</td>
                     <td>{{ invoice.read_date }}</td>
                     <td>{{ invoice.units_consumed }}</td>
                     <td>{{ invoice.amount_from_units }}</td>
@@ -57,7 +57,7 @@
                             <a href="{#}" id="invoice_delete"></a>
                         </div>
                     --> <a href="{% url 'sms:invoice_preview' invoice.id %}" title="" class="btn btn-outline-primary btn-sm">Invoice Preview</a>
-                        <a href="{% url 'sms:water_payments_clients' 213 %}" class="btn btn-outline-primary btn-sm" >Payment</a>
+                        <a href="{% url 'sms:water_payments_clients' invoice.account_number %}" class="btn btn-outline-primary btn-sm" >Payment</a>
                     </td>
                 </tr>
                 {% endfor %}
