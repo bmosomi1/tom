@@ -606,7 +606,7 @@ def statement_preview(request, client_id):
             'courts': court,
             'client': client
         }
-        return render(request, 'sms/statement_view.html', context)
+        return render(request, 'sms/statement_preview.html', context)
     else:
         statement = WaterStatement.objects.filter(id=0)
         context = {        
