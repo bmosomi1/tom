@@ -1,0 +1,252 @@
+{% extends 'layouts/new_base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block additional_meta %}
+
+{% endblock %}
+
+{% block additional_styles %}
+
+{% endblock %}
+
+{% block content %}
+<hr>
+<form action="{% url 'sms:statement_preview' client_id %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        
+
+
+        
+        
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-outline-success" start_date.style.display = "none">Generate Statement </button>
+        </div>
+    </div>
+</form>
+<hr>
+
+<div class="row">
+        <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <section class="invoice">
+              <div class="row mb-4">
+                <div class="col-4">
+                  <h2 class="page-header"><img alt="Logo" src="{% static 'images/tnt.PNG' %}" height="100px"></h2>
+                  <p></p>
+                    <h3 style="margin-top: -13px !important; color: #1F494A; font-size: 11px !important;">Your Water Solutions</h3>
+                </div>
+                <div class="col-4">
+                  <p style="font-size: 14px !important; color: #1F494A;">T and T sky limit co. Ltd</p>
+                  <p style="color: #1F494A; margin-top: -15px !important; font-size: 14px !important;">P.O.BOX 1262-00200 NAIROBI</p>
+                  <p style="color: #1F494A; margin-top: -15px !important; font-size: 14px !important;">Katani Rd, Twiga court</p>
+                  <p style="color: #1F494A; margin-top: -15px !important; font-size: 14px !important;">Tel : 0712730611</p>
+                  <p style="color: #1F494A; margin-top: -15px !important; font-size: 14px !important;">Email : tandtskylimit@gmail.com</p>
+                  <p style="color: #1F494A; margin-top: -15px !important; font-size: 14px !important;">Borehole Water Service</p>
+                </div>
+                <div class="col-3">
+                  <h2 class="text-left" style="color: #1F494A; font-size: 35px">STATEMENT</h2>
+                </div>
+              </div>
+              <div class="row invoice-info" style="">
+                  <div class="col-sm-8">
+                      <div class="card col-sm-6 border-dark">
+                          <div class="card-body">
+                          <h5>CLIENT.:</h5>
+                          <p style="font-weight: bold">{{ names }}</p>
+                          <p style="font-weight: bold">{{ courts }} Station,</p>
+                          
+                          <p style="font-weight: bold">Tel: {{ tel }} </p>
+                              {% if client.kra_pin != None %}
+                                  <p style="font-weight: bold">KRA PIN: {{ client.kra_pin }}</p>
+                              {% endif %}
+                      </div>
+                      </div>
+                  </div>
+                 <div class="col-sm-4">
+                     <table class="table table-bordered">
+                         <thead>
+
+                         </thead>
+                         <tbody>
+                         <tr>
+                             <td>DATE: </td>
+                             <td>{{ statement_day|date:"d M Y"}}</td>
+                         </tr>
+                         <tr>
+                             <td>PERIOD:</td>
+                             <td>{{ starting_date|date:"d/m/Y" }}-{{ ending_date|date:"d/m/Y" }} </td>
+
+                         </tr>
+                         <tr>
+                             <td>CUSTOMER NO:</td>
+                             <td> {{ client_num }}</td>
+                         </tr>
+                        <!-- <tr>
+                             <td>PIN NUMBER:</td>
+                             <td></td>-->
+                         </tr>
+{#                         <tr>#}
+{#                             <td>CUSTOMER PO NUMBER:</td>#}
+{#                             <td>{{ client.address }}</td>#}
+{#                         </tr>#}
+{#                         <tr>#}
+{#                             <td>#}
+{#                                 CURRENCY:#}
+{#                             </td>#}
+{#                             <td>Ksh</td>#}
+{#                         </tr>#}
+                         </tbody>
+                     </table>
+                     <br>
+                 </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 table-responsive table-hover">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        
+                        <th>Balance</th>
+                      </tr>
+                     
+                    </thead>
+                    <tbody>
+                      {% if balance_brought_forward%}
+
+                        <tr>
+                            
+                          <td>{{ stat_date|date:"d M Y" }}</td>
+                          <td>Balance Brought forward</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>{{ balance_brought_forward|floatformat:"2" }}</td>
+                        </tr>
+                    
+                      {% endif %}
+                        {% for service in statement %}
+                        <tr>
+                          
+                          <td>{{ service.statement_date|date:"d M Y" }}</td>
+                          {% if service.units %}
+
+                            <td>{{ service.narration }} P. Readings:  {{ service.prev_reading }}, Current: {{ service.curr_reading }}, units: {{ service.units}}.</td>
+                            {% else %}
+                            <td>{{ service.narration }} </td>
+
+                            {% endif %}
+                          <td>{{ service.debit }}</td>
+                          <td>{{ service.credits|floatformat:"2" }}</td>
+                          <td>{{ service.balance|floatformat:"2" }}</td>
+                        </tr>
+                      {% endfor %}
+                        
+                      
+                      
+
+                    
+                    <tr>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td> - </td>
+                         </tr>
+                         <tr>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td> - </td>
+                         </tr>
+                         <tr>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td> - </td>
+                         </tr>
+                        <tr>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td> - </td>
+                         </tr>
+                        <tr>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td> - </td>
+                         </tr>
+                         <tr>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td> - </td>
+                        </tr>
+                        <tr>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td> - </td>
+                        </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        
+        
+
+            <div class="row" style="margin-top: 100px !important;">
+                <div class="col-sm-3">
+
+                </div>
+               
+                 <div class="col-sm-3">
+
+                </div>
+            </div>
+              <div class="row d-print-none mt-2">
+                <div class="col-12 text-right"><a class="btn btn-primary" href="javascript:window.print();" target="_blank"><i class="fa fa-print"></i> Print</a></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+
+
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript">
+      $('#demoDate').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+
+       $('#demoDate2').datepicker({
+      	format: "yyyy-mm-dd",
+      	autoclose: true,
+      	todayHighlight: true
+      });
+    </script>
+
+{% endblock %}
+
+
+
